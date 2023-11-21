@@ -1,6 +1,9 @@
 #ifndef SPARTANINTERFACECLASS_H 
 #define SPARTANINTERFACECLASS_H
 
+#include "interfaces/spartan_interface_file_class.h"
+SpartanInterfaceFileClass SpartanInterfaceFile;
+
 #include "interfaces/spartan_interface_display_class.h"
 #include "interfaces/spartan_interface_io_class.h"
 #include "interfaces/spartan_interface_server_class.h"
@@ -24,10 +27,10 @@ class SpartanInterfaceClass {
 void SpartanInterfaceClass::start () {
 	Serial.println("Started SpartanInterfaceClass");
 
+  SpartanInterfaceFile.start();
 	SpartanInterfaceDisplay.start();
   SpartanInterfaceIo.start();
   SpartanInterfaceServer.start();
-
 
 };
 #endif
