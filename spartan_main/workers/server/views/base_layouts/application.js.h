@@ -1,13 +1,6 @@
 const char application_js[] PROGMEM =
 R"=====(
       <script>
-        function main_class(){
-           //alert;("hello user!"); 
-        }
-        main_class();
-      </script>
-
-      <script>
         function handleFormSubmit(event) {
           event.preventDefault(); 
           var formAction = this.getAttribute('action');

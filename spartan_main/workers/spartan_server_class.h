@@ -9,7 +9,7 @@ SpartanServerNetworkClass SpartanServerNetwork;
 
 class SpartanServerClass {
   private:
-      
+
   public:
 		void start();
 		void sustain_loop();

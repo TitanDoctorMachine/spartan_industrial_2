@@ -1,7 +1,7 @@
 #ifndef SPARTANSECURITYCLASS_H 
 #define SPARTANSECURITYCLASS_H
 
-#include "../lib/Base64.h"
+#include "../lib/arduino-base64/Base64.h"
 #include "../lib/ESP8266TrueRandom/ESP8266TrueRandom.cpp"
 
 #include <SHA256.h>

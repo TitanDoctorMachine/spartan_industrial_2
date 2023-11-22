@@ -2,7 +2,10 @@ const char side_bar_html[] PROGMEM =
 R"=====(  
   <div class="sidebar">
     <div class="center">
-      <img src="<*SP_logo_tag*>" style="width:50%; padding: 10px;">
+    
+      <img src="https://avatars.githubusercontent.com/u/107588166?s=400&u=9a0a0991f7cc468558d697f9ecb25626d45072c1&v=4" style="width:200; padding: 10px;">
+      <!--<img src="<//*SP_logo_tag*>" style="width:200; padding: 10px;">-->
+
     </div>
     <hr>
     <a href="/" class=" mini-card nav-item">Dashboard</a>

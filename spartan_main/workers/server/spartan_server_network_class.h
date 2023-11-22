@@ -92,9 +92,9 @@ void SpartanServerNetworkClass::internal_load_dashboard_page () {
 
 	String buff_loading_page = pre_load_contents(dashboard_html);
 	/*Capable of internal manipulation*/
-	WebServer.send(200, "text/html",
-		render_html_page(buff_loading_page)
-	);
+	
+	buff_loading_page = render_html_page(buff_loading_page).c_str();
+	WebServer.send(200, "text/html", buff_loading_page);
 };
 
 void SpartanServerNetworkClass::internal_load_wifi_page () {
@@ -112,9 +112,8 @@ void SpartanServerNetworkClass::internal_load_wifi_page () {
 	buff_loading_page.replace("<*SP_wifi_connection_name_tag*>", SpartanInterfaceServer.get_wifi_connection_name());
 	buff_loading_page.replace("<*SP_wifi_hotspot_name_tag*>", SpartanInterfaceServer.get_wifi_hotspot_name());
 
-	WebServer.send(200, "text/html",
-		render_html_page(buff_loading_page)
-	);
+	buff_loading_page = render_html_page(buff_loading_page).c_str();
+	WebServer.send(200, "text/html", buff_loading_page);
 };
 
 void SpartanServerNetworkClass::internal_update_hotspot_params () {
@@ -148,9 +147,8 @@ void SpartanServerNetworkClass::internal_load_security_screen () {
 	String buff_loading_page = pre_load_contents(security_page_html);
 	/*Capable of internal manipulation*/
 
-	WebServer.send(200, "text/html",
-		render_html_page(buff_loading_page)
-	);
+	buff_loading_page = render_html_page(buff_loading_page).c_str();
+	WebServer.send(200, "text/html", buff_loading_page);
 };
 
 void SpartanServerNetworkClass::internal_update_system_password () {
@@ -225,9 +223,8 @@ void SpartanServerNetworkClass::authenticate() {
 
 void SpartanServerNetworkClass::internal_load_login_page () {	
 	String buff_loading_page = pre_load_contents(login_page_html);
-	WebServer.send(200, "text/html",
-		render_html_page(buff_loading_page)
-	);
+	buff_loading_page = render_html_page(buff_loading_page).c_str();
+	WebServer.send(200, "text/html", buff_loading_page);
 };
 
 void SpartanServerNetworkClass::internal_login_method () {
