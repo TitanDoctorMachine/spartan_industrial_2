@@ -1,5 +1,7 @@
 # Prerequisites
 *.d
+/.vscode
+/.vscode/arduino.json
 
 # Compiled Object files
 *.slo
