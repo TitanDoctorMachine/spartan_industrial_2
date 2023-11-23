@@ -25,7 +25,7 @@ class SpartanInterfaceClass {
 };
 
 void SpartanInterfaceClass::start () {
-	Serial.println("Started SpartanInterfaceClass");
+	Logger.println("Started SpartanInterfaceClass");
 
   SpartanInterfaceFile.start();
 	SpartanInterfaceDisplay.start();

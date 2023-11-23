@@ -17,7 +17,7 @@ class SpartanServerClass {
 };
 
 void SpartanServerClass::start () {
-	Serial.println("Started SpartanServerClass");
+	Logger.println("Started SpartanServerClass");
 	SpartanServerNetwork.start();
 
   WebServer.on("/login", HTTP_GET, SpartanServerNetwork.load_login_page());

@@ -82,7 +82,7 @@ class SpartanServerNetworkClass {
 };
 
 void SpartanServerNetworkClass::start () {
-	Serial.println("Started SpartanServerNetworkClass");
+	Logger.println("Started SpartanServerNetworkClass");
 };
 
 /*NORMAL PAGES*/
@@ -147,6 +147,11 @@ void SpartanServerNetworkClass::internal_load_security_screen () {
 	String buff_loading_page = pre_load_contents(security_page_html);
 	/*Capable of internal manipulation*/
 
+	// SpartanInterfaceFile.write_value("admin_password", LocalSpartanSecurity.hash_256(passwd));
+
+  buff_loading_page.replace("<*SP_system_token_name_tag*>", SpartanInterfaceFile.read_value("system_token"));
+
+
 	buff_loading_page = render_html_page(buff_loading_page).c_str();
 	WebServer.send(200, "text/html", buff_loading_page);
 };
@@ -154,17 +159,39 @@ void SpartanServerNetworkClass::internal_load_security_screen () {
 void SpartanServerNetworkClass::internal_update_system_password () {
 	authenticate();
 
+	Logger.set_activity_percent(50);
+
+	String output;
+
 	String passwd = WebServer.arg("password");
-	SpartanInterfaceFile.write_value("admin_password", LocalSpartanSecurity.hash_256(passwd));
+	String system_token = WebServer.arg("system_token");
+	
+	if ((SpartanInterfaceFile.read_value("system_token") == system_token) && (passwd == "")){
+		output = R"(
+			open_notification('Nothing to Update!');
+		)";
+	}
 
-	String output = R"(
-		open_notification('Password Updated Succesfully!');
-		setCookie('session_token', '0', 1);
-		setTimeout(() => {
-			window.location.href = '/login'
-		}, 2000);
-	)";
+	if ((SpartanInterfaceFile.read_value("system_token") == system_token) && (passwd != "")){	
+		SpartanInterfaceFile.write_value("admin_password", LocalSpartanSecurity.hash_256(passwd));
+		output = R"(
+			open_notification('Password Updated Succesfully!');
+			setCookie('session_token', '0', 1);
+			setTimeout(() => {
+				window.location.href = '/login'
+			}, 2000);
+		)";
+	}
+	
+	if ((SpartanInterfaceFile.read_value("system_token") != system_token) && (passwd == "")){	
+		SpartanInterfaceFile.write_value("system_token", system_token);
+		output = R"(
+			open_notification('Token Updated Succesfully!');
+		)";
+	}
 
+ 	Logger.hide_progress_bar();
+	
 	WebServer.send(200, "text/html", output);
 }
 
@@ -228,12 +255,19 @@ void SpartanServerNetworkClass::internal_load_login_page () {
 };
 
 void SpartanServerNetworkClass::internal_login_method () {
+  Logger.set_activity_percent(50);
+
 	String session_token = LocalSpartanSecurity.random_code();
 
 	if(SpartanInterfaceFile.read_value("admin_password") == ""){
 		SpartanInterfaceFile.write_value("admin_password", LocalSpartanSecurity.hash_256("admin"));
 	}
+	
 	delay(200);
+
+  Logger.hide_progress_bar();
+
+
 	if(SpartanInterfaceFile.read_value("admin_password") == LocalSpartanSecurity.hash_256(WebServer.arg("password"))){
 		SpartanInterfaceFile.write_value("session_token_system", session_token);
 	

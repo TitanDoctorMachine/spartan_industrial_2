@@ -35,7 +35,7 @@ class SpartanInterfaceServerClass {
 };
 
 void SpartanInterfaceServerClass::start () {
-	Serial.println("Started SpartanInterfaceServerClass");
+	Logger.println("Started SpartanInterfaceServerClass");
 
 	if(SpartanInterfaceFile.read_value("hotspot_ssid") == ""){
 		SpartanInterfaceFile.write_value("hotspot_ssid", "SystemSpartanSlave2");
@@ -60,19 +60,19 @@ void SpartanInterfaceServerClass::start_wifi_worker () {
     WiFi.softAPdisconnect(true);
   }
 	
-	Serial.println("Starting WIFI connection...");
+	Logger.println("Starting WIFI connection...");
 	
 	server_mode = !connect_wifi();
   
   if(server_mode){
     WiFi.softAP(ssid_for_internal_network, password_for_internal_network);
     IPAddress myIP = WiFi.softAPIP();
- 		Serial.println("Couldn't Start Wifi, starting HOTSPOT:");
-		Serial.println(ssid_for_internal_network);
-		Serial.println(WiFi.softAPIP().toString());
+ 		Logger.println("Couldn't Start Wifi, starting HOTSPOT:");
+		Logger.println(ssid_for_internal_network);
+		Logger.println(WiFi.softAPIP().toString());
   } else {
-		Serial.println("Started Wifi : ");
-		Serial.println(WiFi.localIP().toString());
+		Logger.println("Started Wifi : ");
+		Logger.println(WiFi.localIP().toString());
 	}
 
 };
@@ -81,12 +81,12 @@ bool SpartanInterfaceServerClass::connect_wifi() {
 
   
   WiFi.begin(ssid_for_login, password_for_login);
-	Serial.println(ssid_for_login);
+	Logger.println(ssid_for_login);
 
   while (WiFi.status() != WL_CONNECTED && tentativasConexao < maxTentativasConexao) {
     delay(1000);
     tentativasConexao++;
-		Serial.println("...");
+		Logger.println("...");
   }
   if (WiFi.status() == WL_CONNECTED) {
 		return true;
@@ -127,7 +127,7 @@ String SpartanInterfaceServerClass::get_wifi_hotspot_name () {return ssid_for_in
 	http.begin(client, url);
 
 	int codigoResposta = http.GET();
-	Serial.println(String(codigoResposta).c_str());
+	Logger.println(String(codigoResposta).c_str());
 
 	if (codigoResposta == 200) {
 		String plainContent = http.getString();

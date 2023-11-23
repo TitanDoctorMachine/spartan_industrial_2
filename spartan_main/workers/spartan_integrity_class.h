@@ -14,6 +14,6 @@ class SpartanIntegrityClass {
 };
 
 void SpartanIntegrityClass::start () {
-	Serial.println("Started SpartanIntegrityClass");
+	Logger.println("Started SpartanIntegrityClass");
 };
 #endif

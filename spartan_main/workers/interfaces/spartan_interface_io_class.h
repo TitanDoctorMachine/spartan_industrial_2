@@ -23,7 +23,7 @@ class SpartanInterfaceIoClass {
 };
 
 void SpartanInterfaceIoClass::start () {
-	Serial.println("Started SpartanInterfaceIoClass");
+	Logger.println("Started SpartanInterfaceIoClass");
   
 	pinMode(EnablePortPin, OUTPUT);
   pinMode(PowerPortPin, OUTPUT);

@@ -1,11 +1,6 @@
 #ifndef SPARTANINTERFACEDISPLAYCLASS_H 
 #define SPARTANINTERFACEDISPLAYCLASS_H
 
-#include <Wire.h>
-#include "SSD1306Wire.h"
-
-SSD1306Wire display(0x3c, 14, 0); //D5 e D3
-
 class SpartanInterfaceDisplayClass {
   private:
       
@@ -20,10 +15,11 @@ class SpartanInterfaceDisplayClass {
 };
 
 void SpartanInterfaceDisplayClass::start () {
-	Serial.println("Started SpartanInterfaceDisplayClass");
+	Logger.println("Started SpartanInterfaceDisplayClass");
 
-  display.init();
-  display.flipScreenVertically();
+  // display.init();
+  // display.flipScreenVertically();
+	//Started in logger class
 
 }
 

@@ -14,15 +14,15 @@ class SpartanInterfaceFileClass {
 };
 
 void SpartanInterfaceFileClass::start () {
-	Serial.println("Started SpartanInterfaceFileClass");
-	Serial.println("Mount LittleFS");
+	Logger.println("Started SpartanInterfaceFileClass");
+	Logger.println("Mount LittleFS");
   if (!LittleFS.begin()) {
-    Serial.println("LittleFS mount failed");
+    Logger.println("LittleFS mount failed");
     return;
   }}
 
 String SpartanInterfaceFileClass::read_value(String fileName) {
-	Serial.println("Reading from: " + fileName);
+	Logger.println("Reading from: " + fileName);
 	
 	File file = LittleFS.open(fileName, "r");
 	if (file) {
@@ -39,14 +39,16 @@ String SpartanInterfaceFileClass::read_value(String fileName) {
 }
 
 void SpartanInterfaceFileClass::write_value(String fileName, String value) {
-	Serial.println("Writing to: '" + fileName + "' the value: " + value);
-	
+	Logger.println("Writing to: '" + fileName + "' the value: " + value);
+	Logger.set_activity_percent(50);
 	File file = LittleFS.open(fileName, "w");
 	if (file) {
 		if (file.print(value)) {
-			Serial.println("File written");
+			Logger.hide_progress_bar();
+			Logger.println("File written");
+
 		} else {
-			Serial.println("Write failed");
+			Logger.println("Write failed");
 		}
 	  delay(1000);  // Make sure the CREATE and LASTWRITE times are different
 		file.close();

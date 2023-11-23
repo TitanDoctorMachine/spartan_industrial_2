@@ -8,7 +8,15 @@ R"=====(
     <br>
     <form id="form_user_passwd" action="/set_system_password" method="POST">
       <label for="password">System Password: </label>
-      <input type="password" id="password" name="password" required>
+      <input type="password" id="password" name="password">
+      <br><br>
+      
+      <label for="system_token">System TOKEN: </label>
+      <input type="password" id="system_token" name="system_token" value="<*SP_system_token_name_tag*>"
+        onfocusout="document.getElementById('system_token').type = 'password';"
+        onfocusin="document.getElementById('system_token').type = 'text';"
+        style="width:100%;"
+      >
       <br><br>
       
       <input type="submit" value="Submit" class="button">

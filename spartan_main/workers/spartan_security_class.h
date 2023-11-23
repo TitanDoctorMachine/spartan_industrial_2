@@ -25,15 +25,14 @@ class SpartanSecurityClass {
 };
 
 void SpartanSecurityClass::start () {
-	Serial.println("Started SpartanSecurityClass");
+	Logger.println("Started SpartanSecurityClass");
 	
-	Serial.println("Testing RNG Class:");
-	Serial.println(random_code());
-	Serial.println(random_code());
-	Serial.println(random_code());
-	Serial.println(random_code());
-	Serial.println("Done");
-
+	Logger.println("Testing RNG Class:");
+	Logger.println(random_code());
+	Logger.println(random_code());
+	Logger.println(random_code());
+	Logger.println(random_code());
+	Logger.println("Done");
 
 };
 
