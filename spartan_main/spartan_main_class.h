@@ -10,11 +10,22 @@ SpartanLoggerClass Logger;
 #include "workers/spartan_integrity_class.h"
 #include "workers/spartan_interface_class.h"
 #include "workers/spartan_server_class.h"
+#include "workers/spartan_time_thread_class.h"
 
 SpartanSecurityClass SpartanSecurity;
 SpartanInterfaceClass SpartanInterface;
 SpartanServerClass SpartanServer;
 SpartanIntegrityClass SpartanIntegrity;
+
+SpartanTimeThreadClass thread_server_1(2);
+SpartanTimeThreadClass thread_server_2(3);
+SpartanTimeThreadClass thread_server_3(4);
+SpartanTimeThreadClass thread_server_4(5);
+
+SpartanTimeThreadClass TimeLoop1;
+SpartanTimeThreadClass TimeLoop2;
+SpartanTimeThreadClass TimeLoop3;
+
 
 class SpartanMainClass {
   private:
@@ -56,8 +67,6 @@ void SpartanMainClass::start () {
     SpartanInterfaceFile.write_value("system_token", SpartanSecurity.random_code());
   }
 
-	/*SpartanInterfaceDisplay.show_progress_bar(25);
-	SpartanInterfaceDisplay.write_screen();*/
 	Logger.hide_progress_bar();
 
 	SpartanInterfaceServer.start_wifi_worker();
@@ -67,7 +76,32 @@ void SpartanMainClass::start () {
 
 void SpartanMainClass::sustain_loop () {
 	
-	SpartanServer.sustain_loop();
+	if(thread_server_1.run()){
+		SpartanServer.sustain_loop();
+	}
+
+	if(thread_server_2.run()){
+	}
+
+	if(thread_server_3.run()){
+	}
+
+	if(thread_server_4.run()){
+	}
+
+	if(TimeLoop1.every_x_milliseconds(1000)){
+		// Logger.println("Run 1s");
+	}
+
+	if(TimeLoop2.every_x_milliseconds(4000)){
+		// Logger.println("Run 4s");
+	}
+
+	if(TimeLoop3.every_x_milliseconds(600000)){
+		SpartanInterfaceDisplay.clear_screen();
+		SpartanInterfaceDisplay.write_screen();
+	}
 
 };
+
 #endif
