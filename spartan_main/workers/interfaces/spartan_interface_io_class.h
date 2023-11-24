@@ -1,12 +1,18 @@
 #ifndef SPARTANINTERFACEIOCLASS_H 
 #define SPARTANINTERFACEIOCLASS_H
 
-int LATCHPIN = 12; //D6
-int CLOCKPIN = 4; //D2  
-int DataPortPin = 5; //D1 Port1
-int EnablePortPin = 13; //D7 Port1
-int PowerPortPin = 16; //D0 Port1
 int DATAPORT[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+class SpartanInterfaceShiftRegisterClass {
+	private:
+      
+  public:
+		void output_all_ports();
+		void set_all_ports_low();
+		void set_port (int, bool);
+
+};
+SpartanInterfaceShiftRegisterClass SpartanInterfaceShiftRegister;
 
 class SpartanInterfaceIoClass {
   private:
@@ -14,67 +20,64 @@ class SpartanInterfaceIoClass {
   public:
 		void start();
 
-		void set_power_port(bool state){digitalWrite(EnablePortPin, !state);};
-  	void set_external_power_supply(bool state){digitalWrite(PowerPortPin, state);};
-
-		void output_all_ports();
-		void set_all_ports_low();
-		void set_port (int, bool);
+		void set_power_port(bool state){digitalWrite(ENABLE_PORT_PIN, !state);};
+  	void set_external_power_supply(bool state){digitalWrite(POWER_PORT_PIN, state);};
 };
 
 void SpartanInterfaceIoClass::start () {
 	Logger.println("Started SpartanInterfaceIoClass");
   
-	pinMode(EnablePortPin, OUTPUT);
-  pinMode(PowerPortPin, OUTPUT);
+	pinMode(ENABLE_PORT_PIN, OUTPUT);
+  pinMode(POWER_PORT_PIN, OUTPUT);
 	
 	set_power_port(false);
 	set_external_power_supply(false);
-	set_all_ports_low();
-	output_all_ports();
+	SpartanInterfaceShiftRegister.set_all_ports_low();
+	SpartanInterfaceShiftRegister.output_all_ports();
 };
 
-void SpartanInterfaceIoClass::set_all_ports_low () {
+void SpartanInterfaceShiftRegisterClass::set_all_ports_low () {
 	for(int i=0; i++; i != 15){
     DATAPORT[i] = 0;
   }
 }
 
-void SpartanInterfaceIoClass::set_port (int addr, bool state) {
+void SpartanInterfaceShiftRegisterClass::set_port (int addr, bool state) {
 	if(addr < 0 && addr > 15){
 		DATAPORT[addr] = state;
 	}
+	output_all_ports();
 }
 
-void SpartanInterfaceIoClass::output_all_ports () {
+void SpartanInterfaceShiftRegisterClass::output_all_ports () {
 	int Data;
 
-	pinMode(CLOCKPIN, OUTPUT);
-	pinMode(DataPortPin, OUTPUT);
-	pinMode(LATCHPIN, OUTPUT);
+	pinMode(CLOCK_PIN, OUTPUT);
+	pinMode(DATA_PORT_PIN, OUTPUT);
+	pinMode(LATCH_PIN, OUTPUT);
 
-	digitalWrite(LATCHPIN, 0);
-	digitalWrite(DataPortPin, 0);
-	digitalWrite(CLOCKPIN, 0);
+	digitalWrite(LATCH_PIN, 0);
+	digitalWrite(DATA_PORT_PIN, 0);
+	digitalWrite(CLOCK_PIN, 0);
   
   for (int i=15; i>=0; i--)  {
     
-    digitalWrite(CLOCKPIN, 0);
+    digitalWrite(CLOCK_PIN, 0);
     
     if (DATAPORT[i] == 0) { // yes, its inversed;    
-      digitalWrite(DataPortPin, 1);
+      digitalWrite(DATA_PORT_PIN, 1);
     } else {    
-      digitalWrite(DataPortPin, 0);
+      digitalWrite(DATA_PORT_PIN, 0);
     }
         
-    digitalWrite(CLOCKPIN, 1);
-    digitalWrite(DataPortPin, 0);
+    digitalWrite(CLOCK_PIN, 1);
+    digitalWrite(DATA_PORT_PIN, 0);
   }
 
-	digitalWrite(CLOCKPIN, 0);
-	digitalWrite(LATCHPIN, 1);
+	digitalWrite(CLOCK_PIN, 0);
+	digitalWrite(LATCH_PIN, 1);
 	delay(300);
-	digitalWrite(LATCHPIN, 0);
+	digitalWrite(LATCH_PIN, 0);
 
 };
 

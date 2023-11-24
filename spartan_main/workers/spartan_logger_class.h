@@ -4,7 +4,7 @@
 #include <Wire.h>
 #include "SSD1306Wire.h"
 
-SSD1306Wire display(0x3c, 14, 0); //D5 e D3 // Start LCD here to help with logger, the interface will use this object;
+SSD1306Wire display(0x3c, SDA_LCD, SDB_LCD); // Start LCD here to help with logger, the interface will use this object;
 
 class SpartanLoggerClass {
   private:
