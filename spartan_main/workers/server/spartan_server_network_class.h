@@ -11,7 +11,7 @@
 #include "views/dashboard/dashboard.html.h"
 #include "views/wifi/wifi_page.html.h"
 #include "views/security/security_page.html.h"
-
+#include "views/interface_ios/interface_ios_page.html.h"
 
 SpartanSecurityClass LocalSpartanSecurity;
 
@@ -36,6 +36,7 @@ class SpartanServerNetworkClass {
  		void internal_login_method();
 		void internal_load_security_screen();
 		void internal_update_system_password();
+		void internal_load_system_ios_ports_page();
 
   public:
 
@@ -75,7 +76,9 @@ class SpartanServerNetworkClass {
       this->internal_update_system_password();
     };}
 		
-
+		std::function<void()> load_system_ios_ports_page() {return [this]() {
+      this->internal_load_system_ios_ports_page();
+    };}
 
 		
 		
@@ -194,6 +197,46 @@ void SpartanServerNetworkClass::internal_update_system_password () {
 	
 	WebServer.send(200, "text/html", output);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+void SpartanServerNetworkClass::internal_load_system_ios_ports_page () {
+	authenticate();
+
+	String buff_loading_page = pre_load_contents(interface_ios_page_html);
+	/*Capable of internal manipulation*/
+
+  // buff_loading_page.replace("<*SP_system_token_name_tag*>", SpartanInterfaceFile.read_value("system_token"));
+
+	buff_loading_page = render_html_page(buff_loading_page).c_str();
+	WebServer.send(200, "text/html", buff_loading_page);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* RENDER PARTS BLOCK*/

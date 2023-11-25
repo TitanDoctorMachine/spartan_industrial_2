@@ -13,6 +13,8 @@ R"=====(
     <a href="/connections" class="mini-card nav-item">Connections</a>
     <br>
     <a href="/security" class="mini-card nav-item">Security</a>
+    <br>
+    <a href="/interface_ios" class="mini-card nav-item">Interface IO</a>
   </div>
 )====="
 ;

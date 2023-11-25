@@ -32,6 +32,10 @@ void SpartanServerClass::start () {
   WebServer.on("/security", HTTP_GET, SpartanServerNetwork.load_security_screen());
   WebServer.on("/set_system_password", HTTP_POST, SpartanServerNetwork.update_system_password());
 
+  WebServer.on("/interface_ios", HTTP_GET, SpartanServerNetwork.load_system_ios_ports_page());
+  // WebServer.on("/interface_ios", HTTP_POST, SpartanServerNetwork.load_system_ios_ports_page());
+
+
 
   // track cookies server
   const char * headerkeys[] = {"User-Agent","Cookie"} ;

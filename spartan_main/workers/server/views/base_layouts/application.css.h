@@ -117,6 +117,20 @@ R"=====(
         transform: translateY(0);
       }
     }
+
+		.big {
+		  font-size: 40;
+		}
+
+		.grid-50{
+			width: 50%;
+			display: inline-grid;
+		}
+
+		.grid-32{
+			width: 32%;
+			display: inline-grid;
+		}
 	</style>
 )====="
 ;
