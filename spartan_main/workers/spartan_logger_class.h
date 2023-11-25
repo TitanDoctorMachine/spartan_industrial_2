@@ -139,7 +139,6 @@ void SpartanLoggerClass::println(const Printable& x)
   Serial.println(x);
 }
 
-
-
+SpartanLoggerClass Logger;
 
 #endif

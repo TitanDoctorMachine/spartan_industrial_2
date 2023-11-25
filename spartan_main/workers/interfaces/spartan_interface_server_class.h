@@ -117,20 +117,3 @@ String SpartanInterfaceServerClass::get_wifi_connection_name () {return ssid_for
 String SpartanInterfaceServerClass::get_wifi_hotspot_name () {return ssid_for_internal_network;};
 
 #endif
-
-
-
-/*
-	WiFiClient client;
-	HTTPClient http;
-
-	http.begin(client, url);
-
-	int codigoResposta = http.GET();
-	Logger.println(String(codigoResposta).c_str());
-
-	if (codigoResposta == 200) {
-		String plainContent = http.getString();
-	}
-	http.end();
-*/

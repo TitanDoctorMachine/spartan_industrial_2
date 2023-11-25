@@ -52,4 +52,6 @@ void SpartanServerClass::sustain_loop() {
   
 }
 
+SpartanServerClass SpartanServer;
+
 #endif

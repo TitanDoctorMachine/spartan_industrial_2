@@ -33,4 +33,7 @@ void SpartanInterfaceClass::start () {
   SpartanInterfaceServer.start();
 
 };
+
+SpartanInterfaceClass SpartanInterface;
+
 #endif

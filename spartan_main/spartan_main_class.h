@@ -4,20 +4,12 @@
 #include <Arduino.h>;
 
 #include "workers/spartan_configs_static_class.h"
-
 #include "workers/spartan_logger_class.h"
-SpartanLoggerClass Logger;
-
 #include "workers/spartan_security_class.h"
-#include "workers/spartan_integrity_class.h"
 #include "workers/spartan_interface_class.h"
 #include "workers/spartan_server_class.h"
 #include "workers/spartan_time_thread_class.h"
-
-SpartanSecurityClass SpartanSecurity;
-SpartanInterfaceClass SpartanInterface;
-SpartanServerClass SpartanServer;
-SpartanIntegrityClass SpartanIntegrity;
+#include "workers/spartan_integrity_class.h"
 
 SpartanTimeThreadClass thread_server_1(2);
 SpartanTimeThreadClass thread_server_2(3);
@@ -33,10 +25,6 @@ class SpartanMainClass {
   private:
       
   public:
-		//Construtor
-		// SpartanMainClass
-
-		//lets start by the interfaces class
 		void start();
 		void sustain_loop();
 
@@ -72,7 +60,6 @@ void SpartanMainClass::start () {
 	Logger.hide_progress_bar();
 
 	SpartanInterfaceServer.start_wifi_worker();
-
 
 };
 

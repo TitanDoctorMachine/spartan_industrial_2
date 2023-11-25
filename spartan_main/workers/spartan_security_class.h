@@ -136,4 +136,7 @@ String SpartanSecurityClass::decrypt(String encoded_data_str, String SymKey, Str
 			*/
 		return "";
 }
+
+SpartanSecurityClass SpartanSecurity;
+
 #endif
