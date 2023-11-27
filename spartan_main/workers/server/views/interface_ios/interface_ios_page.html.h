@@ -17,20 +17,13 @@ R"=====(
   <div class="mini-card sub-card" style="width: 89%;">
     <h1>Shift Register Ports</h1>
     <br>
-    <h2 class="grid-32"><span class="button"><b class="big">✓</b> Port 1 </span></h2>
-    <h2 class="grid-32"><span class="button"><b class="big">✓</b> Port 2</span></h2>
-    <h2 class="grid-32"><span class="button"><b class="big">✓</b> Port 3</span></h2>
-    <h2 class="grid-32"><span class="button"><b class="big">✓</b> Port 4</span></h2>
-    <h2 class="grid-32"><span class="button"><b class="big">✓</b> Port 5</span></h2>
-    <h2 class="grid-32"><span class="button"><b class="big">✓</b> Port 6</span></h2>
-    <h2 class="grid-32"><span class="button"><b class="big">✓</b> Port 7</span></h2>
-    <h2 class="grid-32"><span class="button"><b class="big">✓</b> Port 8</span></h2>
-    <h2 class="grid-32"><span class="button"><b class="big">✓</b> Port 9</span></h2>
-    <h2 class="grid-32"><span class="button"><b class="big">✓</b> Port 10</span></h2>
-    <h2 class="grid-32"><span class="button"><b class="big">✓</b> Port 11</span></h2>
-    <h2 class="grid-32"><span class="button"><b class="big">✓</b> Port 12</span></h2>
-    <h2 class="grid-32"><span class="button"><b class="big">✓</b> Port 13</span></h2>
-    <h2 class="grid-32"><span class="button"><b class="big">✓</b> Port 14</span></h2>
+    <*SP_shift_ports_tag*>
+  </div>
+  
+  <div class="mini-card sub-card" style="width: 89%;">
+    <h1>GPIO Ports</h1>
+    <br>
+	  <*SP_D_ports_tag*>
   </div>
 
 </div>

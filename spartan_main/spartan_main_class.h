@@ -3,6 +3,7 @@
 
 #include <Arduino.h>;
 
+#include <unordered_map>
 #include "workers/spartan_configs_static_class.h"
 #include "workers/spartan_logger_class.h"
 #include "workers/spartan_security_class.h"

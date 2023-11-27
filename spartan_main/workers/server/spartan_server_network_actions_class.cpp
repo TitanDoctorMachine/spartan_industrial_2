@@ -112,6 +112,24 @@ void SpartanServerNetworkClass::internal_load_system_ios_ports_page () {
 	String buff_loading_page = pre_load_contents(interface_ios_page_html);
 	/*Capable of internal manipulation*/
 
+	String shift_ports, gpio_ports;
+
+	for (const auto& elemento : system_shift_register) {
+    shift_ports += "<h2 class='grid-32'><span class='button' id='" + elemento.second + "'><b class='big'>✓</b>" + String(elemento.first) + "</span></h2>";
+  };
+	
+
+	if(USE_SHIFT_PORTS){
+		for (const auto& elemento : gpio_map) {
+    	gpio_ports += "<h2 class='grid-32'><span class='button' id='" + elemento.second + "'><b class='big'>✓</b>" + String(elemento.first) + "</span></h2>";
+		};
+		buff_loading_page.replace("<*SP_shift_ports_tag*>", shift_ports);
+	} else {
+		buff_loading_page.replace("<*SP_shift_ports_tag*>", "");
+	}
+
+	buff_loading_page.replace("<*SP_D_ports_tag*>", gpio_ports);
+
   // buff_loading_page.replace("<*SP_system_token_name_tag*>", SpartanInterfaceFile.read_value("system_token"));
 
 	buff_loading_page = render_html_page(buff_loading_page).c_str();
