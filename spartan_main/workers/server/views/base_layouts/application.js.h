@@ -74,7 +74,26 @@ R"=====(
         }
       </script>
 
+      <script>
 
+        function call_fast_ajax(route, id_system, mode) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", route, true);
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              console.log(xhr.responseText);
+              try {
+                eval(xhr.responseText);
+              } catch (error) {
+                console.error('Error evaluating JavaScript response:', error);
+              }
+            }
+          };
+          var parametros = "id_system=" + encodeURIComponent(id_system) + "&mode=" + encodeURIComponent(mode);
+          xhr.send(parametros);
+        }
 
+      </script>
 )====="
 ;

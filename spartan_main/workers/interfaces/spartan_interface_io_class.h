@@ -1,7 +1,7 @@
 #ifndef SPARTANINTERFACEIOCLASS_H 
 #define SPARTANINTERFACEIOCLASS_H
 
-int DATAPORT[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+//int DATA_PORT[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 class SpartanInterfaceShiftRegisterClass {
 	private:
@@ -20,8 +20,8 @@ class SpartanInterfaceIoClass {
   public:
 		void start();
 
-		void set_power_port(bool state){digitalWrite(ENABLE_PORT_PIN, !state);};
-  	void set_external_power_supply(bool state){digitalWrite(POWER_PORT_PIN, state);};
+		void set_power_port(bool state){digitalWrite(ENABLE_PORT_PIN, state);};
+  	void set_external_power_supply(bool state){digitalWrite(POWER_PORT_PIN, !state);};
 };
 
 void SpartanInterfaceIoClass::start () {
@@ -29,7 +29,7 @@ void SpartanInterfaceIoClass::start () {
   
 	pinMode(ENABLE_PORT_PIN, OUTPUT);
   pinMode(POWER_PORT_PIN, OUTPUT);
-	
+
 	set_power_port(false);
 	set_external_power_supply(false);
 	SpartanInterfaceShiftRegister.set_all_ports_low();
@@ -38,14 +38,12 @@ void SpartanInterfaceIoClass::start () {
 
 void SpartanInterfaceShiftRegisterClass::set_all_ports_low () {
 	for(int i=0; i++; i != 15){
-    DATAPORT[i] = 0;
+    DATA_PORT[i] = 0;
   }
 }
 
 void SpartanInterfaceShiftRegisterClass::set_port (int addr, bool state) {
-	if(addr < 0 && addr > 15){
-		DATAPORT[addr] = state;
-	}
+	DATA_PORT[addr] = state;
 	output_all_ports();
 }
 
@@ -64,7 +62,7 @@ void SpartanInterfaceShiftRegisterClass::output_all_ports () {
     
     digitalWrite(CLOCK_PIN, 0);
     
-    if (DATAPORT[i] == 0) { // yes, its inversed;    
+    if (DATA_PORT[i] == 0) { // yes, its inversed;    
       digitalWrite(DATA_PORT_PIN, 1);
     } else {    
       digitalWrite(DATA_PORT_PIN, 0);

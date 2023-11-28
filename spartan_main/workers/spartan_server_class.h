@@ -32,8 +32,9 @@ void SpartanServerClass::start () {
   WebServer.on("/security", HTTP_GET, SpartanServerNetwork.load_security_screen());
   WebServer.on("/set_system_password", HTTP_POST, SpartanServerNetwork.update_system_password());
 
+  WebServer.on("/interface_gpios", HTTP_GET, SpartanServerNetwork.load_system_gpio_ports_page());
   WebServer.on("/interface_ios", HTTP_GET, SpartanServerNetwork.load_system_ios_ports_page());
-  // WebServer.on("/interface_ios", HTTP_POST, SpartanServerNetwork.load_system_ios_ports_page());
+  WebServer.on("/set_interface_ios", HTTP_POST, SpartanServerNetwork.interface_ios());
 
 
 

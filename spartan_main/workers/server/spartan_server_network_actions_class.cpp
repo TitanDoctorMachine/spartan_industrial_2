@@ -109,29 +109,131 @@ void SpartanServerNetworkClass::internal_update_system_password () {
 void SpartanServerNetworkClass::internal_load_system_ios_ports_page () {
 	authenticate();
 
+	/*For god's sake, this part is complicated...*/
+
 	String buff_loading_page = pre_load_contents(interface_ios_page_html);
-	/*Capable of internal manipulation*/
 
-	String shift_ports, gpio_ports;
-
-	for (const auto& elemento : system_shift_register) {
-    shift_ports += "<h2 class='grid-32'><span class='button' id='" + elemento.second + "'><b class='big'>✓</b>" + String(elemento.first) + "</span></h2>";
-  };
+	String shift_ports;
 	
+	if(!digitalRead(POWER_PORT_PIN)){
+		buff_loading_page.replace("<*SP_power_port_tag*>", "✓");
+	} else {
+		buff_loading_page.replace("<*SP_power_port_tag*>", "✗");
+	};
 
+	if(digitalRead(ENABLE_PORT_PIN)){
+		buff_loading_page.replace("<*SP_ext_supply_port_tag*>", "✓");
+	} else {
+		buff_loading_page.replace("<*SP_ext_supply_port_tag*>", "✗");
+	};
+	
 	if(USE_SHIFT_PORTS){
-		for (const auto& elemento : gpio_map) {
-    	gpio_ports += "<h2 class='grid-32'><span class='button' id='" + elemento.second + "'><b class='big'>✓</b>" + String(elemento.first) + "</span></h2>";
+		shift_ports += R"=====(<div class="mini-card sub-card" style="width: 89%;"><h1>Shift Register Ports</h1><br>)=====";
+		for (const auto& element : system_shift_register) {
+			shift_ports += R"=====(<h2 class='grid-32'><span class='button' )=====";
+			shift_ports += R"=====(onclick="call_fast_ajax('/set_interface_ios', ')=====";
+			shift_ports += String(element.first);
+			shift_ports += R"=====(','shift_port');" id=')=====";
+			shift_ports += String(element.first);
+			shift_ports += "'><b class='big'>";
+			
+			if(DATA_PORT[element.first]){
+				shift_ports += "✓";
+			} else {
+				shift_ports += "✗";
+			};
+			shift_ports += "</b>" + element.second + "</span></h2>";
+		
 		};
+		shift_ports += "</div>";
+
 		buff_loading_page.replace("<*SP_shift_ports_tag*>", shift_ports);
 	} else {
 		buff_loading_page.replace("<*SP_shift_ports_tag*>", "");
 	}
 
-	buff_loading_page.replace("<*SP_D_ports_tag*>", gpio_ports);
 
   // buff_loading_page.replace("<*SP_system_token_name_tag*>", SpartanInterfaceFile.read_value("system_token"));
 
 	buff_loading_page = render_html_page(buff_loading_page).c_str();
 	WebServer.send(200, "text/html", buff_loading_page);
 };
+
+void SpartanServerNetworkClass::internal_load_system_gpio_ports_page () {
+	authenticate();
+
+	/*For god's sake, this part is complicated...*/
+
+	String buff_loading_page = pre_load_contents(gpio_interface_ios_page_html);
+	String gpio_ports;
+
+	for (const auto& element : gpio_map) {
+   	gpio_ports += R"=====(<h2 class='grid-32'><span class='button' )=====";
+		gpio_ports += R"=====(onclick="call_fast_ajax('/set_interface_ios', ')=====";
+		gpio_ports += String(element.first);
+		gpio_ports += R"=====(','gpio');" id=')=====";
+		gpio_ports += String(element.first);
+		gpio_ports += "'><b class='big'>";
+		if(digitalRead(element.first)){
+			gpio_ports += "✓";
+		} else {
+			gpio_ports += "✗";
+		};
+		gpio_ports += "</b>" + element.second + "</span></h2>";
+	};
+	buff_loading_page.replace("<*SP_D_ports_tag*>", gpio_ports);
+
+	buff_loading_page = render_html_page(buff_loading_page).c_str();
+	WebServer.send(200, "text/html", buff_loading_page);
+};
+
+void SpartanServerNetworkClass::internal_interface_ios () {
+	authenticate();
+
+	String id_system = WebServer.arg("id_system");
+	String mode = WebServer.arg("mode");
+
+		if (mode == "power_port"){
+			if(digitalRead(POWER_PORT_PIN)){
+				pinMode(POWER_PORT_PIN, OUTPUT);
+				digitalWrite(POWER_PORT_PIN, LOW);
+			} else {
+				pinMode(POWER_PORT_PIN, OUTPUT);
+				digitalWrite(POWER_PORT_PIN, HIGH);
+			};
+			Logger.println("Set: Power Port");
+		} else
+		if (mode == "ext_power_supply"){
+			if(digitalRead(ENABLE_PORT_PIN)){
+				pinMode(ENABLE_PORT_PIN, OUTPUT);
+				digitalWrite(ENABLE_PORT_PIN, LOW);
+			} else {
+				pinMode(ENABLE_PORT_PIN, OUTPUT);
+				digitalWrite(ENABLE_PORT_PIN, HIGH);
+			};
+			Logger.println("Set: External Power Supply");
+		} else
+		if (mode == "shift_port"){
+			if(DATA_PORT[id_system.toInt()]){
+				SpartanInterfaceShiftRegister.set_port(id_system.toInt(), false);
+			} else {
+				SpartanInterfaceShiftRegister.set_port(id_system.toInt(), true);
+			};
+			Logger.println("Set: Shift Port " + id_system);
+		}else
+		if (mode == "gpio"){
+			if(digitalRead(id_system.toInt())){
+				pinMode(id_system.toInt(), OUTPUT);
+				digitalWrite(id_system.toInt(), LOW);
+			} else {
+				pinMode(id_system.toInt(), OUTPUT);
+				digitalWrite(id_system.toInt(), HIGH);
+			};
+			Logger.println("Set: GPIO Port " + id_system);
+
+		}
+
+	WebServer.send(200, "text/html",
+		"setTimeout(() => {window.location.reload();}, 50);"
+	);
+}

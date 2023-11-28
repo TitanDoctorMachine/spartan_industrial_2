@@ -12,6 +12,7 @@
 #include "views/wifi/wifi_page.html.h"
 #include "views/security/security_page.html.h"
 #include "views/interface_ios/interface_ios_page.html.h"
+#include "views/interface_ios/gpio_interface_ios_page.html.h"
 
 
 SpartanSecurityClass LocalSpartanSecurity;
@@ -38,6 +39,8 @@ class SpartanServerNetworkClass {
 		void internal_load_security_screen();
 		void internal_update_system_password();
 		void internal_load_system_ios_ports_page();
+		void internal_load_system_gpio_ports_page();
+		void internal_interface_ios();
 
   public:
 
@@ -80,8 +83,15 @@ class SpartanServerNetworkClass {
 		std::function<void()> load_system_ios_ports_page() {return [this]() {
       this->internal_load_system_ios_ports_page();
     };}
+		std::function<void()> load_system_gpio_ports_page() {return [this]() {
+      this->internal_load_system_gpio_ports_page();
+    };}
 
 		
+
+		std::function<void()> interface_ios() {return [this]() {
+      this->internal_interface_ios();
+    };}
 		
 };
 
