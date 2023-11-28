@@ -41,6 +41,8 @@ void SpartanMainClass::start () {
 
   SpartanSecurity.start();
 
+	Ignum04.start();
+
 	Logger.set_activity_percent(30);
 
 	SpartanInterface.start();

@@ -20,6 +20,7 @@
             "includePath": [
                 "/home/docmac/.arduino15/packages/esp8266/hardware/esp8266/3.0.2/tools/sdk/include",
                 "/home/docmac/.arduino15/packages/esp8266/hardware/esp8266/3.0.2/tools/sdk/lwip2/include",
+                "/tmp/arduino/sketches/96AF5A9FB2A3070612B6181DDF7B87B2/core",
                 "/home/docmac/.arduino15/packages/esp8266/hardware/esp8266/3.0.2/cores/esp8266",
                 "/home/docmac/.arduino15/packages/esp8266/hardware/esp8266/3.0.2/variants/generic",
                 "/home/docmac/.arduino15/packages/esp8266/hardware/esp8266/3.0.2/libraries/Wire",
@@ -53,7 +54,7 @@
                 "TCP_MSS=536",
                 "LWIP_FEATURES=1",
                 "LWIP_IPV6=0",
-                "ARDUINO=10819",
+                "ARDUINO=10607",
                 "ARDUINO_ESP8266_GENERIC",
                 "ARDUINO_ARCH_ESP8266",
                 "ARDUINO_BOARD=\"ESP8266_GENERIC\"",

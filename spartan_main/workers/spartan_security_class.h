@@ -139,4 +139,6 @@ String SpartanSecurityClass::decrypt(String encoded_data_str, String SymKey, Str
 
 SpartanSecurityClass SpartanSecurity;
 
+#include "security/ignum_04_class.h"
+
 #endif

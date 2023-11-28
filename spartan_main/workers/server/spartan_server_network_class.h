@@ -41,6 +41,8 @@ class SpartanServerNetworkClass {
 		void internal_load_system_ios_ports_page();
 		void internal_load_system_gpio_ports_page();
 		void internal_interface_ios();
+		void internal_ignum4_interface();
+		void internal_ignum4_challenge();
 
   public:
 
@@ -86,12 +88,18 @@ class SpartanServerNetworkClass {
 		std::function<void()> load_system_gpio_ports_page() {return [this]() {
       this->internal_load_system_gpio_ports_page();
     };}
-
-		
-
 		std::function<void()> interface_ios() {return [this]() {
       this->internal_interface_ios();
     };}
+		std::function<void()> ignum4_interface() {return [this]() {
+      this->internal_ignum4_interface();
+    };}
+		std::function<void()>ignum4_challenge() {return [this]() {
+      this->internal_ignum4_challenge();
+    };}
+
+		
+
 		
 };
 
@@ -101,5 +109,6 @@ void SpartanServerNetworkClass::start () {
 
 #include "spartan_server_network_actions_class.cpp"
 #include "spartan_server_network_renderers_class.cpp"
+#include "spartan_server_network_ignum4_class.cpp"
 
 #endif

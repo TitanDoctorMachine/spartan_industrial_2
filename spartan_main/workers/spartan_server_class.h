@@ -35,7 +35,9 @@ void SpartanServerClass::start () {
   WebServer.on("/interface_gpios", HTTP_GET, SpartanServerNetwork.load_system_gpio_ports_page());
   WebServer.on("/interface_ios", HTTP_GET, SpartanServerNetwork.load_system_ios_ports_page());
   WebServer.on("/set_interface_ios", HTTP_POST, SpartanServerNetwork.interface_ios());
-
+  
+  WebServer.on("/api/v1/ignum4", HTTP_GET, SpartanServerNetwork.ignum4_interface());
+  WebServer.on("/api/v1/ignum4_challenge", HTTP_GET, SpartanServerNetwork.ignum4_challenge());
 
 
   // track cookies server
