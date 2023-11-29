@@ -9,7 +9,7 @@ class Ignum04Class {
 		void start();
 		void generate_new_challenge();
 		String get_challenge();
-		String decrypt_message(String challenge);
+		String decrypt_message(String content);
 
 };
 
@@ -25,7 +25,14 @@ String Ignum04Class::get_challenge() {
 	return absolute_challenge; 
 }
 
-String Ignum04Class::decrypt_message(String challenge){
+String Ignum04Class::decrypt_message(String content){
+	
+	String current_key = SpartanSecurity.hash_256(absolute_challenge + SpartanInterfaceFile.read_value("system_token"));
+	
+	
+	
+	
+	
 	return "in development";
 }
 
