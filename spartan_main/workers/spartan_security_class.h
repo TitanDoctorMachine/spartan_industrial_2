@@ -1,7 +1,7 @@
 #ifndef SPARTANSECURITYCLASS_H 
 #define SPARTANSECURITYCLASS_H
 
-#include "../lib/arduino-base64/Base64.h"
+#include "../lib/arduino-base64/Base64.cpp"
 #include "../lib/ESP8266TrueRandom/ESP8266TrueRandom.cpp"
 
 #include <SHA256.h>
@@ -63,7 +63,7 @@ String SpartanSecurityClass::hash_256(String input){
 }
 
 String SpartanSecurityClass::encrypt(String plain_data, String SymKey, String Vector){
-   /*   
+
       // AES CBC Encryption
       //tool from Kakopappa (from Github).
       //Modified by DocMac.
@@ -96,12 +96,11 @@ String SpartanSecurityClass::encrypt(String plain_data, String SymKey, String Ve
       char encoded_data[ base64_enc_len(len) ];
       base64_encode(encoded_data, (char *)data, len);
       
-      return String(encoded_data);*/
-			return  "";
+      return String(encoded_data);
 }
 
 String SpartanSecurityClass::decrypt(String encoded_data_str, String SymKey, String Vector){  
-/*
+
       // AES CBC Decryption
       //tool from Kakopappa (from Github).
       //Modified by DocMac.
@@ -133,12 +132,9 @@ String SpartanSecurityClass::decrypt(String encoded_data_str, String SymKey, Str
       plain_data[len] = '\0';
 
       return String(plain_data);
-			*/
-		return "";
+			
 }
 
 SpartanSecurityClass SpartanSecurity;
-
-#include "security/ignum_04_class.h"
 
 #endif

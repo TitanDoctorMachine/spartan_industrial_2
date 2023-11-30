@@ -1,6 +1,8 @@
 #ifndef IGNUM04CLASS_H 
 #define IGNUM04CLASS_H
 
+String ignum4_task_list_global[];
+
 class Ignum04Class {
   private:
 		String absolute_challenge;
@@ -26,14 +28,17 @@ String Ignum04Class::get_challenge() {
 }
 
 String Ignum04Class::decrypt_message(String content){
-	
 	String current_key = SpartanSecurity.hash_256(absolute_challenge + SpartanInterfaceFile.read_value("system_token"));
-	
-	
-	
-	
-	
-	return "in development";
+	String command = SpartanSecurity.decrypt(content, current_key, absolute_challenge);
+
+	if(command.indexOf("SYSTEM_OK") != -1){
+		Logger.println(command);
+		return command; // its simplest by the way to return the JSON
+	} else {
+		Logger.println("MSG: FAIL!");
+		return "false";
+	}
+
 }
 
 Ignum04Class Ignum04;

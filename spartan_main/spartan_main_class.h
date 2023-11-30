@@ -5,11 +5,13 @@
 
 #include <unordered_map>
 #include <string>
+#include <ESP8266WiFi.h>
 
 #include "workers/spartan_configs_static_class.h"
 #include "workers/spartan_logger_class.h"
 #include "workers/spartan_security_class.h"
 #include "workers/spartan_interface_class.h"
+#include "workers/security/ignum_04_class.h"
 #include "workers/spartan_server_class.h"
 #include "workers/spartan_time_thread_class.h"
 #include "workers/spartan_integrity_class.h"
