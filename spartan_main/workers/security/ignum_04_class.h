@@ -32,6 +32,11 @@ String Ignum04Class::decrypt_message(String content){
 	String command = SpartanSecurity.decrypt(content, current_key, absolute_challenge);
 
 	if(command.indexOf("SYSTEM_OK") != -1){
+		
+		String substringToRemove = "SYSTEM_OK";
+    int substringIndex = command.indexOf(substringToRemove);
+	  command = command.substring(0, substringIndex) + command.substring(substringIndex + substringToRemove.length());
+
 		Logger.println(command);
 		return command; // its simplest by the way to return the JSON
 	} else {

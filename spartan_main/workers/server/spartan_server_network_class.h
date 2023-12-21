@@ -43,6 +43,7 @@ class SpartanServerNetworkClass {
 		void internal_interface_ios();
 		void internal_ignum4_interface();
 		void internal_ignum4_challenge();
+		String perform_job(String);
 
   public:
 
