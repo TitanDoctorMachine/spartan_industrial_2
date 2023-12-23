@@ -34,20 +34,21 @@
 
   } else
 
+  // ... WELL i THINK THAT IS INVERSED KKKKKK
   if (job_id == "POWER_SUPPLIER_UP"){
-    SpartanInterfaceIo.set_external_power_supply(true);
-	} else
-	
-	if (job_id == "POWER_SUPPLIER_DOWN"){
-    SpartanInterfaceIo.set_external_power_supply(false);
-	} else
-  
-  if (job_id == "POWER_PORT_UP"){
     SpartanInterfaceIo.set_power_port(true);
 	} else
 	
-	if (job_id == "POWER_PORT_DOWN"){
+	if (job_id == "POWER_SUPPLIER_DOWN"){
     SpartanInterfaceIo.set_power_port(false);
+	} else
+  
+  if (job_id == "POWER_PORT_UP"){
+    SpartanInterfaceIo.set_external_power_supply(true);
+	} else
+	
+	if (job_id == "POWER_PORT_DOWN"){
+    SpartanInterfaceIo.set_external_power_supply(false);
 	} else
 	// if (job_id == ""){	
 	// } else
