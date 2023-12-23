@@ -1,4 +1,13 @@
-   if (job_id.startsWith("AUTO")) {
+  // http://192.168.1.100/api/v1/ignum4?token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&cypher=POWER_SUPPLIER_UP
+  // http://192.168.1.100/api/v1/ignum4?token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&cypher=POWER_SUPPLIER_DOWN
+  // http://192.168.1.100/api/v1/ignum4?token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&cypher=POWER_PORT_UP
+  // http://192.168.1.100/api/v1/ignum4?token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&cypher=POWER_PORT_DOWN
+
+  // http://192.168.1.100/api/v1/ignum4?token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&cypher=AUTO-Port_2-TRUE  
+   
+  //Sample codes
+   
+  if (job_id.startsWith("AUTO")) {
 
     //AUTO-Port_1-TRUE
 
