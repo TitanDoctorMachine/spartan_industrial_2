@@ -26,33 +26,8 @@ void SpartanServerNetworkClass::internal_ignum4_challenge(){
 
 String SpartanServerNetworkClass::perform_job(String job_id){
 
-	if (job_id == "LIGHT_UP"){
-		SpartanInterfaceShiftRegister.set_port(1, true);
-	} else
+	#include "actions_id.cpp";
 	
-	if (job_id == "LIGHT_DOWN"){
-		SpartanInterfaceShiftRegister.set_port(1, false);
-	} else
-	// if (job_id == ""){	
-	// } else
-	// if (job_id == ""){	
-	// } else
-	// if (job_id == ""){	
-	// } else
-	// if (job_id == ""){	
-	// } else
-	// if (job_id == ""){	
-	// } else
-	// if (job_id == ""){	
-	// } else
-	// if (job_id == ""){	
-	// } else
-	// if (job_id == ""){	
-	// } else
-	{
-		return "FAIL";
-	};
-
 	return "OK";
 
 }

@@ -1,7 +1,7 @@
 #ifndef IGNUM04CLASS_H 
 #define IGNUM04CLASS_H
 
-String ignum4_task_list_global[];
+String ignum4_task_list_global[128];
 
 class Ignum04Class {
   private:

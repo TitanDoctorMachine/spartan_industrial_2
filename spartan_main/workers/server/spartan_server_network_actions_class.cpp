@@ -130,6 +130,11 @@ void SpartanServerNetworkClass::internal_load_system_ios_ports_page () {
 	if(USE_SHIFT_PORTS){
 		shift_ports += R"=====(<div class="mini-card sub-card" style="width: 89%;"><h1>Shift Register Ports</h1><br>)=====";
 		for (const auto& element : system_shift_register) {
+			
+			if (element.second == ""){
+				continue;
+			}
+
 			shift_ports += R"=====(<h2 class='grid-32'><span class='button' )=====";
 			shift_ports += R"=====(onclick="call_fast_ajax('/set_interface_ios', ')=====";
 			shift_ports += String(element.first);

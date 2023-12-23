@@ -4,6 +4,7 @@
 bool USE_SHIFT_PORTS, DATA_PORT[16];
 int LATCH_PIN, CLOCK_PIN, DATA_PORT_PIN, ENABLE_PORT_PIN, POWER_PORT_PIN, SDA_LCD, SDB_LCD;
 std::unordered_map<int, String> system_shift_register, gpio_map;
+int size_of_mapped_commands = 14;
 
 
 class SpartanConfigsStaticClass {
