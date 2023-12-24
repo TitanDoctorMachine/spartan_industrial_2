@@ -78,8 +78,13 @@ void SpartanServerNetworkClass::perform_task_loops(){
 		perform_job(ignum4_task_list_global[0]);
 		Logger.println("JOB: " + ignum4_task_list_global[0]);
 
-		for (int i = 0; i < sizeof(ignum4_task_list_global) - 1; ++i) {
-			ignum4_task_list_global[i] = ignum4_task_list_global[i + 1];
+		for (int i = 0; i < 126 - 1; ++i) { // 126 = size of buffer securely
+			if (ignum4_task_list_global[i + 1] != ""){
+				ignum4_task_list_global[i] = ignum4_task_list_global[i + 1];
+			} else {
+				ignum4_task_list_global[i] = "";
+				continue;
+			}
 		}
 	}
 
