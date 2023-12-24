@@ -1,4 +1,3 @@
 {
-    "board": "esp8266:esp8266:generic",
-    "sketch": "spartan_slave_2.ino"
+    "board": "esp8266:esp8266:generic"
 }
