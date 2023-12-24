@@ -77,6 +77,7 @@ void SpartanMainClass::sustain_loop () {
 	}
 
 	if(thread_server_2.run()){
+		SpartanServerNetwork.perform_task_loops();
 	}
 
 	if(thread_server_3.run()){

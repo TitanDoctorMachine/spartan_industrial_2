@@ -48,6 +48,7 @@ class SpartanServerNetworkClass {
   public:
 
 		void start();
+		void perform_task_loops();
 
 		/*The call of the pages class render*/
 	  //LOGIN
