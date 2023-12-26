@@ -51,5 +51,5 @@ Development Environment Setup
 
 Contributions
 
-You can clone and modify as you want, and if want try to subimit some pull request, and try to work above the develop branch;
+You can clone and modify as you want, and if you want, try to submit some pull requests, and try to work above the develop branch;
 Being honest I am normally not monitoring this platform, but you can try to send some messages if you you realy need or have some doubts. 
