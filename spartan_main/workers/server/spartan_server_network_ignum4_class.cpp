@@ -74,7 +74,7 @@ void SpartanServerNetworkClass::perform_task_loops(){
 		}
 	}
 
-	if (occupied_buffer != 0){
+	if (occupied_buffer != 0 && sleep_time_in_progress_job <= millis()){
 		perform_job(ignum4_task_list_global[0]);
 		Logger.println("JOB: " + ignum4_task_list_global[0]);
 
