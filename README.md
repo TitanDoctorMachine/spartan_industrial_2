@@ -1,4 +1,4 @@
-# Spartan Slave 2
+# Spartan Industrial 2
 
 Arduino ESP8266 Firmware with Web Management Interface for Relay Control and LCD Display
 

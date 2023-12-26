@@ -37,7 +37,7 @@ void SpartanInterfaceServerClass::start () {
 	Logger.println("Started SpartanInterfaceServerClass");
 
 	if(SpartanInterfaceFile.read_value("hotspot_ssid") == ""){
-		SpartanInterfaceFile.write_value("hotspot_ssid", "SystemSpartanSlave2");
+		SpartanInterfaceFile.write_value("hotspot_ssid", "SystemSpartanIndustrial2");
 	}
 	if(SpartanInterfaceFile.read_value("hotspot_password") == ""){
 		SpartanInterfaceFile.write_value("hotspot_password", "0123456789");
