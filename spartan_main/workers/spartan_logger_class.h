@@ -4,11 +4,12 @@
 #include <Wire.h>
 #include "SSD1306Wire.h"
 
-SSD1306Wire display(0x3c, SDA_LCD, SDB_LCD); // Start LCD here to help with logger, the interface will use this object;
+#ifdef SPARTAN_CONFIG_USE_DISPLAY 
+	SSD1306Wire display(0x3c, SDA_LCD, SDB_LCD); // Start LCD here to help with logger, the interface will use this object;
+#endif
 
 class SpartanLoggerClass {
   private:
-		bool lcd_mode = true;
 		String buffer_text[5];
 		int activity_percent = 0;
 
@@ -40,15 +41,19 @@ class SpartanLoggerClass {
 void SpartanLoggerClass::start () {
 	Serial.begin(115200);
 	Serial.println("\nStarted SpartanLoggerClass");
-  display.init();
-  display.flipScreenVertically();
-	display.setFont(ArialMT_Plain_10);
+	#ifdef SPARTAN_CONFIG_USE_DISPLAY 
+		display.init();
+		display.flipScreenVertically();
+		display.setFont(ArialMT_Plain_10);
+	#endif
 };
 
 void SpartanLoggerClass::set_activity_percent(int percent) {
 	activity_percent = percent;
-	display.drawProgressBar(0, 50, 120, 8, activity_percent);
-	display.display();
+	#ifdef SPARTAN_CONFIG_USE_DISPLAY 
+		display.drawProgressBar(0, 50, 120, 8, activity_percent);
+		display.display();
+	#endif
 };
 
 void SpartanLoggerClass::hide_progress_bar() {
@@ -56,7 +61,7 @@ void SpartanLoggerClass::hide_progress_bar() {
 };
 
 void SpartanLoggerClass::print_lcd(String text){
-  if (lcd_mode){
+	#ifdef SPARTAN_CONFIG_USE_DISPLAY 
 		for (int i = 5 - 1; i > 0; i--) {
 			buffer_text[i] = buffer_text[i - 1];
 		}
@@ -75,8 +80,8 @@ void SpartanLoggerClass::print_lcd(String text){
 		}
 
 		display.display();
-	}
 
+	#endif
 }
 
 void SpartanLoggerClass::println(void)

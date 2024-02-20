@@ -114,20 +114,30 @@ void SpartanServerNetworkClass::internal_load_system_ios_ports_page () {
 	String buff_loading_page = pre_load_contents(interface_ios_page_html);
 
 	String shift_ports;
-	
-	if(!digitalRead(POWER_PORT_PIN)){
-		buff_loading_page.replace("<*SP_power_port_tag*>", "✓");
-	} else {
-		buff_loading_page.replace("<*SP_power_port_tag*>", "✗");
-	};
 
-	if(digitalRead(ENABLE_PORT_PIN)){
-		buff_loading_page.replace("<*SP_ext_supply_port_tag*>", "✓");
-	} else {
-		buff_loading_page.replace("<*SP_ext_supply_port_tag*>", "✗");
-	};
+	#ifdef SPARTAN_CONFIG_USE_ENABLE_PORT
+		if(digitalRead(ENABLE_PORT_PIN)){
+			buff_loading_page.replace("<*SP_ext_supply_port_tag*>", "✓");
+		} else {
+			buff_loading_page.replace("<*SP_ext_supply_port_tag*>", "✗");
+		};
+	#endif
+	#ifndef SPARTAN_CONFIG_USE_ENABLE_PORT
+		buff_loading_page.replace("<*SP_ext_supply_port_tag*>", "¤");
+	#endif
+
+	#ifdef SPARTAN_CONFIG_USE_POWER_PORT
+		if(!digitalRead(POWER_PORT_PIN)){
+			buff_loading_page.replace("<*SP_power_port_tag*>", "✓");
+		} else {
+			buff_loading_page.replace("<*SP_power_port_tag*>", "✗");
+		};
+	#endif
+	#ifndef SPARTAN_CONFIG_USE_POWER_PORT
+		buff_loading_page.replace("<*SP_power_port_tag*>", "¤");
+	#endif
 	
-	if(USE_SHIFT_PORTS){
+	#ifdef SPARTAN_CONFIG_USE_SHIFT_PORTS
 		shift_ports += R"=====(<div class="mini-card sub-card" style="width: 89%;"><h1>Shift Register Ports</h1><br>)=====";
 		for (const auto& element : system_shift_register) {
 			
@@ -153,9 +163,10 @@ void SpartanServerNetworkClass::internal_load_system_ios_ports_page () {
 		shift_ports += "</div>";
 
 		buff_loading_page.replace("<*SP_shift_ports_tag*>", shift_ports);
-	} else {
+	#endif
+	#ifndef SPARTAN_CONFIG_USE_SHIFT_PORTS
 		buff_loading_page.replace("<*SP_shift_ports_tag*>", "");
-	}
+	#endif
 
 
   // buff_loading_page.replace("<*SP_system_token_name_tag*>", SpartanInterfaceFile.read_value("system_token"));
@@ -199,32 +210,38 @@ void SpartanServerNetworkClass::internal_interface_ios () {
 	String mode = WebServer.arg("mode");
 
 		if (mode == "power_port"){
-			if(digitalRead(POWER_PORT_PIN)){
-				pinMode(POWER_PORT_PIN, OUTPUT);
-				digitalWrite(POWER_PORT_PIN, LOW);
-			} else {
-				pinMode(POWER_PORT_PIN, OUTPUT);
-				digitalWrite(POWER_PORT_PIN, HIGH);
-			};
-			Logger.println("Set: Power Port");
+			#ifdef SPARTAN_CONFIG_USE_ENABLE_PORT
+				if(digitalRead(POWER_PORT_PIN)){
+					pinMode(POWER_PORT_PIN, OUTPUT);
+					digitalWrite(POWER_PORT_PIN, LOW);
+				} else {
+					pinMode(POWER_PORT_PIN, OUTPUT);
+					digitalWrite(POWER_PORT_PIN, HIGH);
+				};
+				Logger.println("Set: Power Port");
+				#endif
 		} else
 		if (mode == "ext_power_supply"){
-			if(digitalRead(ENABLE_PORT_PIN)){
-				pinMode(ENABLE_PORT_PIN, OUTPUT);
-				digitalWrite(ENABLE_PORT_PIN, LOW);
-			} else {
-				pinMode(ENABLE_PORT_PIN, OUTPUT);
-				digitalWrite(ENABLE_PORT_PIN, HIGH);
-			};
-			Logger.println("Set: External Power Supply");
+			#ifdef SPARTAN_CONFIG_USE_POWER_PORT
+				if(digitalRead(ENABLE_PORT_PIN)){
+					pinMode(ENABLE_PORT_PIN, OUTPUT);
+					digitalWrite(ENABLE_PORT_PIN, LOW);
+				} else {
+					pinMode(ENABLE_PORT_PIN, OUTPUT);
+					digitalWrite(ENABLE_PORT_PIN, HIGH);
+				};
+				Logger.println("Set: External Power Supply");
+			#endif
 		} else
 		if (mode == "shift_port"){
-			if(DATA_PORT[id_system.toInt()]){
-				SpartanInterfaceShiftRegister.set_port(id_system.toInt(), false);
-			} else {
-				SpartanInterfaceShiftRegister.set_port(id_system.toInt(), true);
-			};
-			Logger.println("Set: Shift Port " + id_system);
+			#ifdef SPARTAN_CONFIG_USE_SHIFT_PORTS
+				if(DATA_PORT[id_system.toInt()]){
+					SpartanInterfaceShiftRegister.set_port(id_system.toInt(), false);
+				} else {
+					SpartanInterfaceShiftRegister.set_port(id_system.toInt(), true);
+				};
+				Logger.println("Set: Shift Port " + id_system);
+			#endif
 		}else
 		if (mode == "gpio"){
 			if(digitalRead(id_system.toInt())){

@@ -1,9 +1,6 @@
 /* IGNUM4 Parser*/
 void SpartanServerNetworkClass::internal_ignum4_interface(){
 
-	// String cypher = WebServer.arg("cypher");
-	// String message = Ignum04.decrypt_message(cypher);
-
 	String message = WebServer.arg("cypher");
 	String token = WebServer.arg("token");
   Logger.println(message);
@@ -13,7 +10,6 @@ void SpartanServerNetworkClass::internal_ignum4_interface(){
 		WebServer.send(403, "text/html", "access denied.");
 	}else{
 
-		// here we will implement the execution order routine
 		/*
 			The supported syntax that I am aiming is something like this:
 	  		http://192.168.1.100/api/v1/ignum4?
@@ -42,9 +38,6 @@ void SpartanServerNetworkClass::internal_ignum4_interface(){
 		int occupied_buffer = 0;
 		int commands_size = sizeof(commands); 
 
-		//ignum4_task_list_global;
-		//commands;
-
 		for(int i= 0; i!=126; i++){ // 126 for some security
 			if (ignum4_task_list_global[i] != "" and ignum4_task_list_global[i] != NULL){
 				occupied_buffer++;
@@ -60,7 +53,6 @@ void SpartanServerNetworkClass::internal_ignum4_interface(){
 		}
 
 		WebServer.send(200, "text/html", "tasked_works");
-		//String return_value = perform_job(message);
 	}
 
 }
