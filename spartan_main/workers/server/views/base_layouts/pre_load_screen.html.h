@@ -3,7 +3,7 @@ R"=====(
   <html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spartan Slave 2.0</title>
+  <title>Spartan Industrial 2.0</title>
       
   <head>
     <*SP_css_tag*>

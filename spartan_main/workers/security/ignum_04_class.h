@@ -2,6 +2,7 @@
 #define IGNUM04CLASS_H
 
 String ignum4_task_list_global[128];
+int sleep_time_in_progress_job = 0;
 
 class Ignum04Class {
   private:

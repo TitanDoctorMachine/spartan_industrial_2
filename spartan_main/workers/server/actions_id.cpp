@@ -46,6 +46,16 @@
 
   } else
 
+  if (job_id.startsWith("DELAY_")) {
+
+    //DELAY_1000 // 1s;
+
+    String substring = job_id.substring(6);
+    int delay_time = substring.toInt();
+
+    sleep_time_in_progress_job = millis() + delay_time;
+  } else
+
   // ... WELL i THINK THAT IS INVERSED KKKKKK
   if (job_id == "POWER_SUPPLIER_UP"){
     SpartanInterfaceIo.set_power_port(true);
