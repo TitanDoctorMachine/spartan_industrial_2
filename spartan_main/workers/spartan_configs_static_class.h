@@ -7,11 +7,11 @@ std::unordered_map<int, String> system_shift_register, gpio_map;
 int size_of_mapped_commands = 14;
 
 
-
 #define SPARTAN_CONFIG_USE_DISPLAY //use this if using OLED display
 #define SPARTAN_CONFIG_USE_SHIFT_PORTS // use if want to use shift_port interface
 #define SPARTAN_CONFIG_USE_POWER_PORT
 #define SPARTAN_CONFIG_USE_ENABLE_PORT
+
 
 class SpartanConfigsStaticClass {
   private:
