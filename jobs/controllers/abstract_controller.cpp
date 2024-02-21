@@ -39,8 +39,8 @@ void SpartanAbstractControllerClass::prepare_resources (String class_uri, String
   copy_array_to_another(class_params_array, params_array, sizeof(class_params_array));
   copy_array_to_another(class_params_content_array, params_content_array, sizeof(class_params_content_array)); 
   
-  copy_array_to_another(class_header_array, header_array, sizeof(class_header_array)); 
-  copy_array_to_another(class_header_content_array, header_content_array, sizeof(class_header_content_array)); 
+  copy_array_to_another(class_header_array, header_array, 7); 
+  copy_array_to_another(class_header_content_array, header_content_array, 7); 
 };
 
 String SpartanAbstractControllerClass::params(String key) {
@@ -53,7 +53,7 @@ String SpartanAbstractControllerClass::params(String key) {
 };
 
 String SpartanAbstractControllerClass::headers(String key) {
-  for (int i = 0; i < sizeof(header_array); i++) {
+  for (int i = 0; i < 7; i++) {
     if (strcmp(key.c_str(), header_array[i].c_str())){
       return header_content_array[i];
     }

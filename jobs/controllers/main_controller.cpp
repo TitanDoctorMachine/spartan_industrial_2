@@ -27,10 +27,20 @@ class SpartanControllerClass {
         params_content_array[i] = WebServer.arg(i);
       }
 
-      for (uint8_t i = 0; i < 7; i++) {
-        header_array[i] = WebServer.headerName(i);
-        header_content_array[i] = WebServer.header(i);
-      }
+      header_array[0] = "Accept";
+      header_content_array[0] = WebServer.header("Accept");
+      header_array[1] = "Accept-Encoding";
+      header_content_array[1] = WebServer.header("Accept-Encoding");
+      header_array[2] = "Accept-Language";
+      header_content_array[2] = WebServer.header("Accept-Language");
+      header_array[3] = "Connection";
+      header_content_array[3] = WebServer.header("Connection");
+      header_array[4] = "Cookie";
+      header_content_array[4] = WebServer.header("Cookie");
+      header_array[5] = "Host";
+      header_content_array[5] = WebServer.header("Host");
+      header_array[6] = "User-Agent";
+      header_content_array[6] = WebServer.header("User-Agent");
 
       this->internal_perform_request(uri, method, params_array, params_content_array, header_array, header_content_array);
     };}
@@ -48,6 +58,8 @@ void SpartanControllerClass::internal_perform_request(String uri, String method,
 };
 
 void SpartanControllerClass::render_response(String content, int code) {
+	//WebServer.sendHeader("Cache-Control","no-cache");
+
   WebServer.send(code, "text/html", content);
 };
 
