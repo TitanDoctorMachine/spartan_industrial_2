@@ -45,8 +45,7 @@ void SpartanControllerClass::internal_perform_request(String uri, String method,
 
 void SpartanControllerClass::render_response(String content, int code) {
 	//WebServer.sendHeader("Cache-Control","no-cache");
-
-  WebServer.send(code, "text/html", content);
+  if (content != "") WebServer.send(code, "text/html", content);
 };
 
 SpartanControllerClass SpartanController;

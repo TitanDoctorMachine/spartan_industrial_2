@@ -18,6 +18,10 @@ class SpartanAbstractControllerClass {
     void load_headers(String, String, String, String);
 
   	String perform_request();
+    String generateContent(String);
+    String getContentType(String);
+    bool  handleFileRead(String);
+    void pre_render(String);
 
 };
 
@@ -47,6 +51,9 @@ void SpartanAbstractControllerClass::render_plain(String response){
   response_compiled = response;
 }
 
+void SpartanAbstractControllerClass::pre_render(String content){
+  response_compiled += content;
+}
 
 void SpartanAbstractControllerClass::load_headers (String class_cookies, String class_accept, String class_host, String class_user_agent) {
   cookies = class_cookies; 
@@ -76,4 +83,40 @@ void SpartanAbstractControllerClass::copy_array_to_another(String* src, String* 
   for (int i = 0; i < len; i++) {
     dst[i] = src[i];
   }
+}
+
+String SpartanAbstractControllerClass::generateContent(String compile_content) {
+  static char content[16000];
+  sprintf(content, "%s", compile_content.c_str());
+  return String(content);
+}
+
+String SpartanAbstractControllerClass::getContentType(String filename) {
+  if (filename.endsWith(".html")) return "text/html";
+  else if (filename.endsWith(".css")) return "text/css";
+  else if (filename.endsWith(".js")) return "application/javascript";
+  else if (filename.endsWith(".ico")) return "image/x-icon";
+  else if (filename.endsWith(".gz")) return "application/x-gzip";
+  return "text/plain";
+}
+
+bool SpartanAbstractControllerClass::handleFileRead(String path) {
+
+  if (path.endsWith("/")) path += "index.html";          
+  String contentType = getContentType(path);             
+  String pathWithGz = path + ".gz";
+  
+  if (LittleFS.exists(pathWithGz) || LittleFS.exists(path)) { 
+   
+    if (LittleFS.exists(pathWithGz)) path += ".gz";                                         
+    
+    File file = LittleFS.open(path, "r");                    
+    
+    size_t sent = WebServer.streamFile(file, contentType);
+    
+    file.close();                                          
+    
+    return true;
+  }
+  return false;
 }

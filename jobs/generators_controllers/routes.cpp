@@ -4,8 +4,9 @@
 
 //*%..IDENTIFIER $GET /default_test$
 if (uri == "/default/test" && http_verb == "GET"){
+  pre_render(R"=====(<***!SPARTAN_GENERATOR_TAG_GET_default_test_controller.html***>)=====");
   #include "../controllers/default_test/GET_default_test_controller.cpp"
-} else 
+} else
 
 //*%..IDENTIFIER $POST /default_test$
 if (uri == "/default/test" && http_verb == "POST"){
@@ -15,5 +16,10 @@ if (uri == "/default/test" && http_verb == "POST"){
 //{++ AUTO GENERATED PART, DO NOT CHANGE! ++}
 
 {
-  render_plain("WELCOME TO SPARTA!");
+  /*if (http_verb == "GET"){
+    handleFileRead(uri);
+    render_plain("");
+  } else {*/
+    render_plain("WELCOME TO SPARTA!");
+  //};
 }

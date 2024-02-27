@@ -5,4 +5,6 @@
 
 */
 
-  render_plain("hello from Spartan Industrial 02!");
+  Logger.println("Got Here!");
+
+  //render_plain("hello from Spartan Industrial 02!");
