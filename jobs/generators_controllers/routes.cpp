@@ -16,10 +16,5 @@ if (uri == "/default/test" && http_verb == "POST"){
 //{++ AUTO GENERATED PART, DO NOT CHANGE! ++}
 
 {
-  /*if (http_verb == "GET"){
-    handleFileRead(uri);
-    render_plain("");
-  } else {*/
-    render_plain("WELCOME TO SPARTA!");
-  //};
+  render_plain("WELCOME TO SPARTA!");
 }

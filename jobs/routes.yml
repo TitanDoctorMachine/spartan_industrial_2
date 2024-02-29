@@ -1,0 +1,9 @@
+- route: /default/test
+  verb: GET
+  file_controller: default_test/GET_default_test_controller.cpp
+  file_pre_render_view: default_test/GET_default_test_controller.html
+
+- route: /default/test
+  verb: POST
+  file_controller: default_test/POST_default_test_controller.cpp
+  file_pre_render_view: default_test/POST_default_test_controller.js
