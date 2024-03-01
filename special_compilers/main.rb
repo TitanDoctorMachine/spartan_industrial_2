@@ -54,7 +54,10 @@ class Main
     button1.perform_action_clicked do 
       generator = SpartanGenerator.new(@data_yaml_routes)
       content = generator.generate
+      views_generators = generator.return_views_generators 
       puts content
+      File.write('../spartan_main/generators_controllers/routes.cpp', content)
+      File.write('../spartan_main/generators_controllers/buffer_renders.h', views_generators)
     end
 
     button2.perform_action_clicked do 
@@ -77,7 +80,7 @@ class Main
       out_route = []
       out_route.append route_line["verb"]
       out_route.append route_line["file_controller"]
-      out_route.append route_line["file_pre_render_view"]
+      out_route.append route_line["file_controller"].gsub("_controller.cpp", "") + ".#{route_line["render_method"]}"
       out_route.append route_line["route"]
       data.append(out_route)
     end

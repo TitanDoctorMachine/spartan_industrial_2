@@ -3,6 +3,7 @@ class SpartanGenerator
   def initialize(hash_params)
     @hash_params = hash_params
     @global_output = ""
+    @global_output_renders =  ""
   end
 
   def generate
@@ -14,17 +15,21 @@ class SpartanGenerator
       add_mapped_route(param)
     end
 
+    add_routes_footer()
+
     return @global_output
+  end
+
+  def return_views_generators
+    return @global_output_renders
   end
 
   private
 
   def add_routes_header
-    @global_output += %{
-/*
+    @global_output += %{/*
     THIS PART IS COMPLETED SELF_GENERATED, DO NOT MANUALLY CHANGE
 */
-
 }
   end
 
@@ -43,19 +48,31 @@ class SpartanGenerator
     route = param["route"]
     verb = param["verb"]
     file_controller = param["file_controller"]
-    file_pre_render_view = param["file_pre_render_view"]
+    render_mode = param["render_method"]
+    file_pre_render_view = param["file_controller"].gsub("_controller.cpp", "") + ".#{render_mode}" #param["file_pre_render_view"]
+   
+    #raise NoFoundCompiledFile
+    begin
+      content = File.read("#{Dir.pwd}/../jobs/views/#{file_pre_render_view}").gsub("\n", "")
+    rescue => e
+      puts e.to_s
+      content = false
+    end
 
-    content = File.read("#{Dir.pwd}/../jobs/views/#{file_pre_render_view}").gsub("\n", "")
+    render_public_name = "#{Dir.pwd}/../jobs/views/#{file_pre_render_view}".gsub(" ", "_").gsub("/", "_").gsub(".", "_")
+    @global_output_renders += %{const char var#{render_public_name}[] PROGMEM = R"=====(#{content})====="; }
+
 
     @global_output += %{
-  //*%..IDENTIFIER $#{verb.upcase} #{route}$
-  if (uri == "#{route}" && http_verb == "#{verb.upcase}"){
-    pre_render(R"=====(#{content})=====");
-    #include "../controllers/#{file_controller}"
-  } else
-
+//*%..IDENTIFIER $#{verb.upcase} #{route}$
+if (uri == "#{route}" && http_verb == "#{verb.upcase}"){
+  #{content ? %{pre_render(var#{render_public_name});} : ""}
+  #include "../../jobs/controllers/#{file_controller}"
+} else
     }
   end
 
 
 end
+
+class NoFoundCompiledFile < StandardError; end

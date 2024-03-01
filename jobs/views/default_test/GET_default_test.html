@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Change Background Color</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<h1>Press the button to see the background color change</h1>
+
+<button onclick="changeBackgroundColor()">Change <S&= some_name_of_var /></button>
+
+<script>
+function changeBackgroundColor() {
+    var colors = ["#ff6347", "#4682b4", "#90ee90", "#ffc0cb", "#ffa500"];
+    var randomColor = colors[Math.floor(Math.random() * colors.length)];
+    document.body.style.backgroundColor = randomColor;
+}
+</script>
+
+</body>
+</html>

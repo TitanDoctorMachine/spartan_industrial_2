@@ -1,3 +1,5 @@
+#include "buffer_renders.h"
+
 class SpartanAbstractControllerClass {
   private:
     String uri, http_verb, params_array[32], params_content_array[32];

@@ -4,7 +4,7 @@
 ESP8266WebServer WebServer(80);
 
 #include "server/spartan_server_network_class.h"
-#include "../../jobs/generators_controllers/main_controller.cpp"
+#include "../generators_controllers/main_controller.cpp"
 
 SpartanServerNetworkClass SpartanServerNetwork;
 
