@@ -8,6 +8,7 @@ require_relative "generator.rb"
 class Main
 
   def initialize
+    @files_and_folders = []
     @main_interface = Interface.new
     @main_interface.load_close_instance_behaviour()
     load_graphical_interface()
@@ -19,6 +20,7 @@ class Main
     load_sectors() 
     load_buttons_and_actions()
     load_routes()
+    insert_plain_files_routes()
     load_routes_table()
 
     @main_interface.load_graphical_elements()
@@ -66,11 +68,22 @@ class Main
 
   end
 
-
   def load_routes
     @data_yaml_routes = YAML.load(File.read('../jobs/routes.yml'))
   end
 
+  def insert_plain_files_routes
+    get_files_and_folders_in_folder("../jobs/public_assets").each do |file|
+      @data_yaml_routes.append({
+        "route"=> file.gsub("../jobs/public_assets", ""),
+        "verb"=>"GET",
+        "render_method"=>file.split(".").last,
+        "file_controller"=> nil,
+        "file_view_self_generated" => file.gsub("../jobs/public_assets", "")
+      })
+    end
+
+  end
 
   def load_routes_table
     headers = ["HTTP VERB", "FILE_CONTROLLER", "FILE_VIEW", "ROUTE"]
@@ -79,8 +92,8 @@ class Main
     @data_yaml_routes.each do |route_line|
       out_route = []
       out_route.append route_line["verb"]
-      out_route.append route_line["file_controller"]
-      out_route.append route_line["file_controller"].gsub("_controller.cpp", "") + ".#{route_line["render_method"]}"
+      out_route.append route_line["file_controller"].to_s
+      out_route.append route_line["file_controller"].nil? ? "/public_assets" + route_line["file_view_self_generated"] : "/views/" + route_line["file_controller"].gsub("_controller.cpp", "") + ".#{route_line["render_method"]}"
       out_route.append route_line["route"]
       data.append(out_route)
     end
@@ -94,6 +107,27 @@ class Main
   end
 
   private
+
+  def get_files_and_folders_in_folder(folder_path)
+    if Dir.exist?(folder_path)
+      items = Dir.glob(File.join(folder_path, '*'))
+      files = items.select { |item| File.file?(item) }
+
+      folders = items.select { |item| File.directory?(item) }
+      
+      @files_and_folders.concat(files)
+
+      folders.each do |folder|
+        get_files_and_folders_in_folder(folder)
+        #files_in_folder = Dir.glob(File.join(folder, '*')).select { |item| File.file?(item) }
+        #@files_and_folders.concat(files_in_folder) unless files_in_folder.empty?
+      end
+
+      return @files_and_folders
+    else
+      return {}
+    end
+  end
 
   def preload
   end

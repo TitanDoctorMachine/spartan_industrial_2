@@ -12,7 +12,6 @@
 
     remembering:
       - to add callback functions
-      - mehthods to render plain file contens // for each file in public_assets, map the name file in the root route and render the content as the file mime_type
       - method to set type render 
   */
   

@@ -11,6 +11,7 @@ class SpartanAbstractControllerClass {
     String params(String);
     String headers(String);
     void render_plain(String);
+    void post_render();
 
   public:
 	
@@ -56,6 +57,36 @@ void SpartanAbstractControllerClass::render_plain(String response){
 void SpartanAbstractControllerClass::pre_render(String content){
   response_compiled += content;
 }
+
+void SpartanAbstractControllerClass::post_render(){
+  
+  String vars_to_try[128];
+  int count_keys = 0;
+  
+  while (response_compiled.indexOf("<S&=") != -1) {
+    int startIndex = response_compiled.indexOf("<S&=");
+    int endIndex = response_compiled.indexOf("/>");
+    if (endIndex != -1) {
+      vars_to_try[count_keys] = response_compiled.substring(startIndex, endIndex + 2); // Include "/>" in the substring
+      Serial.print("Replacing view-var: "); 
+      Serial.print(vars_to_try[count_keys]); 
+      Serial.print(" --> "); 
+      Serial.println("."); 
+      response_compiled.replace(vars_to_try[count_keys], "");
+      /*
+        Need to finalize this method
+      */
+
+
+      count_keys++;
+    } else {
+      break;
+    }
+  }
+}
+
+
+
 
 void SpartanAbstractControllerClass::load_headers (String class_cookies, String class_accept, String class_host, String class_user_agent) {
   cookies = class_cookies; 
