@@ -13,4 +13,3 @@
       - to add callback functions
       - method to set type render 
   */
-

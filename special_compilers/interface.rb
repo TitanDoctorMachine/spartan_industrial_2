@@ -46,33 +46,4 @@ class Interface
     return SpartanUIGenTable.new(args[0], args[1])
   end
 
-
-
-
-
-
-
-  def load_graphical_elements
-
-    # button1 = UI.new_button('Button 1')
-    # button2 = UI.new_button('Button 2')
-    # button3 = UI.new_button('Button 3')
-
-    # UI.box_append(@window_sector1, button1, 1)
-    # UI.box_append(@window_sector2, button2, 1)
-    # UI.box_append(@window_sector3, button3, 1)
-
-        
-    # UI.button_on_clicked(button1) do
-    #   UI.msg_box(@absolute_main_window, 'Information', 'You clicked the button1')
-    # end
-
-
-    # UI.button_on_clicked(button2) do
-    #   UI.msg_box(@absolute_main_window, 'Information', 'You clicked the button2')
-    # end
-
-  
-  end
-
 end

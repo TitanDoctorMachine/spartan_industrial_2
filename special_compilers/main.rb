@@ -9,6 +9,7 @@ class Main
 
   def initialize
     @files_and_folders = []
+    @files_layouts = []
     @main_interface = Interface.new
     @main_interface.load_close_instance_behaviour()
     load_graphical_interface()
@@ -21,9 +22,8 @@ class Main
     load_buttons_and_actions()
     load_routes()
     insert_plain_files_routes()
+    load_layouts()
     load_routes_table()
-
-    @main_interface.load_graphical_elements()
 
   end
 
@@ -54,12 +54,13 @@ class Main
     sub_sector_cancel.fully_add_children_element(button2)
 
     button1.perform_action_clicked do 
-      generator = SpartanGenerator.new(@data_yaml_routes)
+      generator = SpartanGenerator.new(@data_yaml_routes, @files_layouts)
       content = generator.generate
-      views_generators = generator.return_views_generators 
-      puts content
+      views_generators = generator.return_views_generators
+      views_layouts = generator.return_layouts
       File.write('../spartan_main/generators_controllers/routes.cpp', content)
       File.write('../spartan_main/generators_controllers/buffer_renders.h', views_generators)
+      File.write('../spartan_main/generators_controllers/buffer_layouts.h', views_layouts)
     end
 
     button2.perform_action_clicked do 
@@ -73,16 +74,22 @@ class Main
   end
 
   def insert_plain_files_routes
+    @files_and_folders = []
     get_files_and_folders_in_folder("../jobs/public_assets").each do |file|
       @data_yaml_routes.append({
         "route"=> file.gsub("../jobs/public_assets", ""),
         "verb"=>"GET",
         "render_method"=>file.split(".").last,
         "file_controller"=> nil,
-        "file_view_self_generated" => file.gsub("../jobs/public_assets", "")
+        "file_view_self_generated" => file.gsub("../jobs/public_assets", ""),
+        "layout" => nil
       })
     end
+  end
 
+  def load_layouts
+    @files_and_folders = []
+    @files_layouts = get_files_and_folders_in_folder("../jobs/views/layouts/")
   end
 
   def load_routes_table
@@ -119,8 +126,6 @@ class Main
 
       folders.each do |folder|
         get_files_and_folders_in_folder(folder)
-        #files_in_folder = Dir.glob(File.join(folder, '*')).select { |item| File.file?(item) }
-        #@files_and_folders.concat(files_in_folder) unless files_in_folder.empty?
       end
 
       return @files_and_folders

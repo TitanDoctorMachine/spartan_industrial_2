@@ -1,0 +1,40 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spartan Industrial 2.0</title>
+      
+  <head>
+    <link rel="stylesheet" href="/application.css">  
+    <script type="text/javascript" src="/application.js"></script>
+  </head>
+  
+  <body>
+
+    <div class="sidebar">
+      <div class="center">
+        <img src="https://avatars.githubusercontent.com/u/107588166?s=400&u=9a0a0991f7cc468558d697f9ecb25626d45072c1&v=4" style="width:200; padding: 10px;">
+      </div>
+      <hr>
+      <a href="/" class=" mini-card nav-item">Dashboard</a>
+      <br>
+      <a href="/connections" class="mini-card nav-item">Connections</a>
+      <br>
+      <a href="/security" class="mini-card nav-item">Security</a>
+      <br>
+      <a href="/interface_ios" class="mini-card nav-item">Interface IO</a>
+      <br>
+      <a href="/interface_gpios" class="mini-card nav-item">Interface GPIO</a>
+     
+    </div>    
+
+    <S&= render_absolute_view />
+
+    <div id="notification" class="notify_modal">
+      <div class="notify_modal-content mini-card sub-card">
+        <span onclick="close_notification()" style="cursor: pointer; float: right;">&times;</span>
+        <p id="message_for_message_modal"></p>
+      </div>
+    </div>
+
+    </body>
+  </html>

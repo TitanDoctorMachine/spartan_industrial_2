@@ -1,7 +1,0 @@
-sudo apt install binutils-avr
-
-item=*.ino
-[ -z "$item" ] && echo ino file not found && exit
-BDIR=/tmp/$(ls -t /tmp | egrep -m1 build.*tmp)
-BASE=$(basename $item .ino)
-avr-objdump -CSI$PWD $BDIR/$BASE.cpp.elf > $BASE.ino.asm
