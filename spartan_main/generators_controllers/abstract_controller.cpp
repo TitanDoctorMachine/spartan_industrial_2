@@ -88,7 +88,7 @@ void SpartanAbstractControllerClass::load_headers(String class_cookies, String c
 };
 
 String SpartanAbstractControllerClass::params(const String& key) {
-  for (size_t i = 0; i < params_keys.size(); i++) {
+  for (size_t i = 0; i < params_keys.size() - 1; i++) {
     if (params_keys[i] == key) {
       return params_values[i];
     }
