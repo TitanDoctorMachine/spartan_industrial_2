@@ -81,6 +81,7 @@ class SpartanGenerator
     @global_output += %{
 //*%..IDENTIFIER $#{verb.upcase} #{route}$
 if (uri == "#{route}" && http_verb == "#{verb.upcase}"){
+  run_application();
   #{content ? %{pre_render(var#{render_public_name});} : ""}
   #{ file_controller.nil? ? "" : %{#include "../../jobs/controllers/#{file_controller}"} }
   post_render();

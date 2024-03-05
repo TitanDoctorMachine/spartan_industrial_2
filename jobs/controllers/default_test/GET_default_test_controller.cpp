@@ -5,16 +5,6 @@
 
   */
 
-  /*
-    The next goal is to put keys like <S&= some_name_of_var />
-    and automatically search in memory for some var with this 
-    name and changing the value;
-
-    remembering:
-      - to add callback functions
-      - method to set type render 
-  */
-  
-  
+  set_view_var("some_name_of_var1", "10");
   Logger.println(params("key"));
 
