@@ -1,11 +1,34 @@
+#admin zone security zone
+
+- route: /admin/login/session_new
+  verb: GET
+  render_method: html #html, js, text
+  file_controller: admin/login/GET_session_new_controller.cpp
+  layout: admin.html
+
+- route: /admin/login/session_new
+  verb: POST
+  render_method: js #html, js, text
+  file_controller: admin/login/POST_session_new_controller.cpp
+  layout: null
+
+#admin dashboard zone
+
+- route: /admin/dashboard
+  verb: GET
+  render_method: html #html, js, text
+  file_controller: admin/dashboard/GET_board_controller.cpp
+  layout: admin.html
+
+
+
+
+
+
+
+
 - route: /default/test
   verb: GET
   render_method: html #html, js, text
   file_controller: default_test/GET_default_test_controller.cpp
   layout: application.html
-
-- route: /default/test
-  verb: POST
-  render_method: js #html, js, text
-  file_controller: default_test/POST_default_test_controller.cpp
-  layout: null

@@ -5,7 +5,7 @@
 
 class SpartanControllerClass {
 private:
-    void render_response(const char *, int);
+    void render_response(String, int);
     void internal_perform_request(String, String, std::vector<String>, std::vector<String>, String, String, String, String);
 
 public:
@@ -35,13 +35,12 @@ void SpartanControllerClass::internal_perform_request(String uri, String method,
 
     SpartanAbstractControllerClass* SpartanAbstractController = new SpartanAbstractControllerClass(uri, method, params_array, params_content_array);
     SpartanAbstractController->load_headers(class_cookies, class_accept, class_host, class_user_agent);
-    const char* content = SpartanAbstractController->perform_request().c_str();
+    render_response(SpartanAbstractController->perform_request(), 200);
     delete SpartanAbstractController;
 
-    render_response(content, 200);
 };
 
-void SpartanControllerClass::render_response(const char* content, int code) {
+void SpartanControllerClass::render_response(String content, int code) {
     //WebServer.sendHeader("Cache-Control","no-cache");
 
     //Logger.println(content);

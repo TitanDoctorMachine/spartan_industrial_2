@@ -1,11 +1,13 @@
 class SpartanGenerator
 
-  def initialize(hash_params, files_layouts)
+  def initialize(hash_params, files_layouts, files_partials)
     @hash_params = hash_params
     @files_layouts = files_layouts
+    @files_partials = files_partials
     @global_output = ""
     @global_output_renders =  ""
     @global_output_layouts =  ""
+    @global_output_partials =  ""
   end
 
   def generate
@@ -17,6 +19,8 @@ class SpartanGenerator
     end
 
     add_mapped_layout()
+    
+    add_mapped_partial()
 
     add_routes_footer()
 
@@ -29,6 +33,10 @@ class SpartanGenerator
 
   def return_layouts
     return @global_output_layouts
+  end
+
+  def return_partials
+    return @global_output_partials
   end
 
   private
@@ -50,6 +58,33 @@ class SpartanGenerator
 }
   end
 
+  def add_mapped_partial()
+
+    array_partials = []
+
+    @files_partials.each do |file_partial|
+
+      content = File.read("#{Dir.pwd}/#{file_partial}").gsub("\n", "").gsub("  ", "")
+      render_public_name = "#{Dir.pwd}/#{file_partial}".gsub(" ", "_").gsub("/", "_").gsub(".", "_")
+      @global_output_renders += %{const char var#{render_public_name}[] PROGMEM = R"=====(#{content})====="; }
+
+      array_partials.append({"file_key" => file_partial.gsub("../jobs/views/", ""), "content" => ("var" + render_public_name)})
+    end
+
+    array_partials.each do |hash|
+      @global_output_partials += %{
+  if (partial == "#{hash["file_key"]}"){
+    return String(#{hash["content"]});
+  } else}
+    end
+    
+    @global_output_partials += %{
+  { return "";}}
+  
+    @global_output_partials = %{ return "";} if array_partials.count.zero?
+
+  end
+
   def add_mapped_layout()
     array_layouts = []
 
@@ -65,8 +100,7 @@ class SpartanGenerator
     array_layouts.each do |hash|
       @global_output_layouts += %{
   if (layout == "#{hash["file_key"]}"){
-    response_compiled = "";
-    response_compiled += String(#{hash["content"]});
+    response_compiled = String(#{hash["content"]});
   } else}
     end
     

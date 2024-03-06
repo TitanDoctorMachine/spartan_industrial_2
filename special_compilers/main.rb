@@ -10,6 +10,7 @@ class Main
   def initialize
     @files_and_folders = []
     @files_layouts = []
+    @files_partials = []
     @main_interface = Interface.new
     @main_interface.load_close_instance_behaviour()
     load_graphical_interface()
@@ -23,6 +24,7 @@ class Main
     load_routes()
     insert_plain_files_routes()
     load_layouts()
+    load_partials()
     load_routes_table()
 
   end
@@ -54,13 +56,15 @@ class Main
     sub_sector_cancel.fully_add_children_element(button2)
 
     button1.perform_action_clicked do 
-      generator = SpartanGenerator.new(@data_yaml_routes, @files_layouts)
+      generator = SpartanGenerator.new(@data_yaml_routes, @files_layouts, @files_partials)
       content = generator.generate
       views_generators = generator.return_views_generators
       views_layouts = generator.return_layouts
+      views_partials = generator.return_partials
       File.write('../spartan_main/generators_controllers/routes.cpp', content)
       File.write('../spartan_main/generators_controllers/buffer_renders.h', views_generators)
       File.write('../spartan_main/generators_controllers/buffer_layouts.h', views_layouts)
+      File.write('../spartan_main/generators_controllers/buffer_partials.h', views_partials)
     end
 
     button2.perform_action_clicked do 
@@ -89,7 +93,14 @@ class Main
 
   def load_layouts
     @files_and_folders = []
-    @files_layouts = get_files_and_folders_in_folder("../jobs/views/layouts/")
+    @files_layouts = get_files_and_folders_in_folder("../jobs/views/layouts/").map{|value| value if !value.split("/").last.start_with?("_")}
+    @files_layouts = @files_layouts.compact!
+  end
+
+  def load_partials
+    @files_and_folders = []
+    @files_partials = get_files_and_folders_in_folder("../jobs/views/").map{|value| value if value.split("/").last.start_with?("_")}
+    @files_partials = @files_partials.compact!
   end
 
   def load_routes_table

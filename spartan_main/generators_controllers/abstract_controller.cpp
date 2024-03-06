@@ -17,6 +17,8 @@ private:
   void render_plain(const String&);
   void post_render();
   void internal_set_view_var(const String&, const String&);
+  String load_partial(const String&);
+  void render_partial(const String&, const String&);
 
 public:
   SpartanAbstractControllerClass(String class_uri, String class_method, const std::vector<String>& class_params_keys, const std::vector<String>& class_params_values) {
@@ -25,7 +27,6 @@ public:
   void load_headers(String, String, String, String);
 
   String perform_request();
-  String generateContent(const String&);
   String getContentType(const String&);
   void pre_render(const String&);
   void pre_render_layout(const String&);
@@ -88,7 +89,7 @@ void SpartanAbstractControllerClass::load_headers(String class_cookies, String c
 };
 
 String SpartanAbstractControllerClass::params(const String& key) {
-  for (size_t i = 0; i < params_keys.size() - 1; i++) {
+  for (size_t i = 0; i < params_keys.size(); i++) {
     if (params_keys[i] == key) {
       return params_values[i];
     }
@@ -103,12 +104,6 @@ String SpartanAbstractControllerClass::headers(const String& key) {
   else if (key == "User-Agent") return user_agent;
   return "";
 };
-
-String SpartanAbstractControllerClass::generateContent(const String& compile_content) {
-  static char content[16000];
-  snprintf(content, sizeof(content), "%s", compile_content.c_str());
-  return String(content);
-}
 
 String SpartanAbstractControllerClass::getContentType(const String& filename) {
   if (filename.endsWith(".html")) return "text/html";
@@ -132,16 +127,56 @@ void SpartanAbstractControllerClass::pre_render_layout(const String& layout) {
   #include "buffer_layouts.h"
 }
 
+String SpartanAbstractControllerClass::load_partial(const String& partial) {
+  #include "buffer_partials.h"
+}
+
+void SpartanAbstractControllerClass::render_partial(const String& partial, const String& key) {
+  set_view_var(key, load_partial(partial));
+}
+
+
 void SpartanAbstractControllerClass::render_plain(const String& response) {
   response_compiled = response;
 }
 
 void SpartanAbstractControllerClass::post_render() {
-  for (const auto& pair : view_vars) {
-    String placeholder = "<S&=" + pair.first + " />";
-    response_compiled.replace(placeholder, pair.second);
+  const int MAX_VARS = 128;
+  String vars_to_try[MAX_VARS];
+  int count_keys = 0;
+  
+  while (response_compiled.indexOf("<S&=") != -1) {
+    int startIndex = response_compiled.indexOf("<S&=");
+    int endIndex = response_compiled.indexOf("/>", startIndex); // Search from startIndex
+    if (endIndex != -1) {
+      vars_to_try[count_keys] = response_compiled.substring(startIndex, endIndex + 2); // Include "/>" in the substring
+
+      String var_to_work_with_and_trim = vars_to_try[count_keys];
+      var_to_work_with_and_trim.replace("<S&=", "");
+      var_to_work_with_and_trim.replace("/>", "");
+      var_to_work_with_and_trim.trim();
+            
+      bool var_replaced = false;
+
+      for (const auto& pair : view_vars) {
+        if (pair.first == var_to_work_with_and_trim) {
+          response_compiled.replace(vars_to_try[count_keys], pair.second);
+          var_replaced = true;
+          break;
+        }
+      }
+
+      if (!var_replaced) {
+        response_compiled.replace(vars_to_try[count_keys], "");
+      }
+
+      count_keys++;
+    } else {
+      break;
+    }
   }
 }
+
 
 void SpartanAbstractControllerClass::internal_set_view_var(const String& key, const String& value) {
   if (view_vars.size() < MAX_VIEW_VARS) {

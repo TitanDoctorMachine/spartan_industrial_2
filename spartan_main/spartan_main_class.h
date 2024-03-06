@@ -66,8 +66,6 @@ void SpartanMainClass::start () {
 
 	Logger.hide_progress_bar();
 
-  SpartanInterfaceFile.write_value("buffer_view", "0");
-
 	SpartanInterfaceServer.start_wifi_worker();
 
 };

@@ -6,5 +6,5 @@
   */
 
   set_view_var("some_name_of_var1", "10");
-  //Logger.println(params("key"));
+  // Logger.println(params("key"));
 

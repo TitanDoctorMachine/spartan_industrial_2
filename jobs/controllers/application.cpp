@@ -10,6 +10,14 @@
     name and changing the value;
 
     remembering:
-      - to add callback functions
-      - method to set type render 
+      - method to set type render
+      - fix params breaking
+      - add render headers
+
+
   */
+
+  render_partial("layouts/assets/_application.css", "render_application_css");
+  render_partial("layouts/assets/_application.js", "render_application_js");
+
+
