@@ -19,8 +19,11 @@ private:
   void internal_set_view_var(const String&, const String&);
   String load_partial(const String&);
   void render_partial(const String&, const String&);
+  std::vector<std::pair<String, String>> headers_to_render;
 
 public:
+  int var_code_render = 200;
+
   SpartanAbstractControllerClass(String class_uri, String class_method, const std::vector<String>& class_params_keys, const std::vector<String>& class_params_values) {
     prepare_resources(class_uri, class_method, class_params_keys, class_params_values);
   }
@@ -35,6 +38,9 @@ public:
   void set_view_var(const String&, float);
   void set_view_var(const String&, const char*);
   void run_application();
+  int code_render(){return var_code_render;}
+  std::vector<std::pair<String, String>> render_headers(){return headers_to_render;}
+  void add_header(const String&, const String&);
 };
 
 void SpartanAbstractControllerClass::prepare_resources(String class_uri, String class_method, const std::vector<String>& class_params_keys, const std::vector<String>& class_params_values) {
@@ -60,6 +66,8 @@ String SpartanAbstractControllerClass::perform_request() {
 
   #include "routes.cpp";
 
+  var_code_render = 200;
+
   return response_compiled;
 };
 
@@ -67,6 +75,10 @@ void SpartanAbstractControllerClass::set_view_var(const String& key, const Strin
   if (view_vars.size() < MAX_VIEW_VARS) {
     view_vars.push_back(std::make_pair(key, value));
   }
+}
+
+void SpartanAbstractControllerClass::add_header(const String& key, const String& value) {
+  headers_to_render.push_back(std::make_pair(key, value));
 }
 
 void SpartanAbstractControllerClass::set_view_var(const String& key, int value) {
@@ -89,7 +101,7 @@ void SpartanAbstractControllerClass::load_headers(String class_cookies, String c
 };
 
 String SpartanAbstractControllerClass::params(const String& key) {
-  for (size_t i = 0; i < params_keys.size(); i++) {
+  for (int i = 0; i < params_keys.size(); i++) {
     if (params_keys[i] == key) {
       return params_values[i];
     }

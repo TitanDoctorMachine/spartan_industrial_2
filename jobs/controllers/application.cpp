@@ -20,4 +20,10 @@
   render_partial("layouts/assets/_application.css", "render_application_css");
   render_partial("layouts/assets/_application.js", "render_application_js");
 
+  if(String(uri).startsWith("/admin/login") == false){
+    add_header("Location","/admin/login/session_new");
+    render_plain(R"(<html><head><meta charset="utf-8"/>
+				<meta http-equiv="refresh" content="0; URL='/admin/login/session_new'"/> 
+			</head></html>)");
+  }
 
