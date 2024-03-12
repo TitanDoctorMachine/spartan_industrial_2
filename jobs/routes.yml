@@ -53,6 +53,24 @@
   file_controller: admin/security/POST_security_controller.cpp
   layout: null
 
+#admin interface gpios
+
+- route: /admin/interface_gpios
+  verb: GET
+  render_method: html #html, js, text
+  file_controller: admin/interface_gpios/GET_interface_gpios_controller.cpp
+  layout: admin.html
+
+- route: /admin/interface_gpios
+  verb: POST
+  render_method: js #html, js, text
+  file_controller: admin/interface_gpios/POST_interface_gpios_controller.cpp
+  layout: null
+
+
+
+
+
 
 
 
