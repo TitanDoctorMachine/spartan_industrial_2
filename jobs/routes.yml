@@ -1,12 +1,11 @@
 #admin zone security zone
-
-- route: /admin/login/session_new
+- route: /admin/login_session_new
   verb: GET
   render_method: html #html, js, text
   file_controller: admin/login/GET_session_new_controller.cpp
   layout: admin.html
 
-- route: /admin/login/session_new
+- route: /admin/login_session_new
   verb: POST
   render_method: js #html, js, text
   file_controller: admin/login/POST_session_new_controller.cpp
@@ -20,6 +19,39 @@
   file_controller: admin/dashboard/GET_board_controller.cpp
   layout: admin.html
 
+#admin connections
+
+- route: /admin/connections
+  verb: GET
+  render_method: html #html, js, text
+  file_controller: admin/connections/GET_connections_controller.cpp
+  layout: admin.html
+
+- route: /admin/set_hotspot_params
+  verb: POST
+  render_method: js #html, js, text
+  file_controller: admin/connections/POST_set_hotspot_params_controller.cpp
+  layout: null
+
+- route: /admin/set_network_params
+  verb: POST
+  render_method: js #html, js, text
+  file_controller: admin/connections/POST_set_network_params_controller.cpp
+  layout: null
+
+#admin security screen
+
+- route: /admin/security
+  verb: GET
+  render_method: html #html, js, text
+  file_controller: admin/security/GET_security_controller.cpp
+  layout: admin.html
+
+- route: /admin/security
+  verb: POST
+  render_method: js #html, js, text
+  file_controller: admin/security/POST_security_controller.cpp
+  layout: null
 
 
 
@@ -32,3 +64,10 @@
   render_method: html #html, js, text
   file_controller: default_test/GET_default_test_controller.cpp
   layout: application.html
+
+- route: /admin
+  verb: GET
+  render_method: html #html, js, text
+  file_controller: null
+  file_view_self_generated: admin/login/redirect.html
+  layout: null

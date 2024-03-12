@@ -9,7 +9,7 @@ function handleFormSubmit(event) {
     method: 'POST',
     body: formData
   })
-  .then(response => response.text()) // Expecting a text response
+  .then(response => response.text()) /* Expecting a text response */
   .then(data => {
     console.log('Success:', data);
     try {
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function open_notification(message) {
   var modal = document.getElementById('notification');
   var message_for_message_modal = document.getElementById('message_for_message_modal');
-  message_for_message_modal.textContent = message
+  message_for_message_modal.textContent = message;
   modal.style.display = 'flex';
   /*setTimeout(function() {
     closeModal();
@@ -45,31 +45,28 @@ function close_notification() {
   modal.style.display = 'none';
 }
 
-function setCookie(name, value, days) {
+function setCookie(name,value,days, route) {
   var expires = "";
   if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    expires = "; expires=" + date.toUTCString();
+      var date = new Date();
+      date.setTime(date.getTime() + (days*24*60*60*1000));
+      expires = "; Expires=" + date.toUTCString();
   }
-  document.cookie = name + "=" + value + expires;
+  document.cookie = name + "=" + (value || "")  + expires + "; Path=" + route + "; SameSite=Strict";
 }
-
 function getCookie(name) {
   var nameEQ = name + "=";
-  var cookies = document.cookie.split(';');
-  for (var i = 0; i < cookies.length; i++) {
-    var cookie = cookies[i];
-    while (cookie.charAt(0) === ' ') {
-      cookie = cookie.substring(1, cookie.length);
-    }
-    if (cookie.indexOf(nameEQ) === 0) {
-      return cookie.substring(nameEQ.length, cookie.length);
-    }
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
   }
   return null;
 }
-
+function eraseCookie(name) {   
+  document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
 
 function call_fast_ajax(route, id_system, mode) {
   var xhr = new XMLHttpRequest();

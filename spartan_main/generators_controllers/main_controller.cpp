@@ -19,10 +19,10 @@ public:
         std::vector<String> params_array;
         std::vector<String> params_content_array;
 
-        for (uint8_t i = 0; i < WebServer.args(); i++) {
-            params_array.push_back(WebServer.argName(i));
-            params_content_array.push_back(WebServer.arg(i));
-        }
+        // for (uint8_t i = 0; i < WebServer.args(); i++) {
+        //     params_array.push_back(WebServer.argName(i));
+        //     params_content_array.push_back(WebServer.arg(i));
+        // }
 
         this->internal_perform_request(uri, method, params_array, params_content_array, WebServer.header("Cookie"), WebServer.header("Accept"), WebServer.header("Host"), WebServer.header("User-Agent"));
     }; }
