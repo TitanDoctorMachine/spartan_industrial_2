@@ -17,7 +17,6 @@ void SpartanServerNetworkClass::internal_ignum4_interface(){
 				cypher=POWER_PORT_UP.POWER_SUPPLIER_UP.AUTO-Port_2-TRUE
 		*/
 		
-		
 		Logger.println(message);
 
  		String commands[32]; // we will support consective 32 commands.

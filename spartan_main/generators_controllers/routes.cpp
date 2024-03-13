@@ -92,6 +92,42 @@ if (uri == "/admin/interface_gpios" && http_verb == "POST"){
   post_render();
 } else
     
+//*%..IDENTIFIER $GET /admin/set_interface_ios$
+if (uri == "/admin/set_interface_ios" && http_verb == "GET"){
+  pre_render_layout("admin.html");
+  run_application();
+  pre_render(var_home_docmac_Arduino_spartan_industrial_2_special_compilers____jobs_views_admin_interface_shift_ios_GET_interface_shift_ios_html);
+  #include "../../jobs/controllers/admin/interface_shift_ios/GET_interface_shift_ios_controller.cpp"
+  post_render();
+} else
+    
+//*%..IDENTIFIER $POST /admin/set_interface_ios$
+if (uri == "/admin/set_interface_ios" && http_verb == "POST"){
+  
+  run_application();
+  
+  #include "../../jobs/controllers/admin/interface_shift_ios/POST_interface_shift_ios_controller.cpp"
+  post_render();
+} else
+    
+//*%..IDENTIFIER $POST /admin/set_interface_power_port$
+if (uri == "/admin/set_interface_power_port" && http_verb == "POST"){
+  
+  run_application();
+  
+  #include "../../jobs/controllers/admin/interface_shift_ios/POST_interface_power_port_enable_controller.cpp"
+  post_render();
+} else
+    
+//*%..IDENTIFIER $POST /admin/set_interface_ext_power_supply$
+if (uri == "/admin/set_interface_ext_power_supply" && http_verb == "POST"){
+  
+  run_application();
+  
+  #include "../../jobs/controllers/admin/interface_shift_ios/POST_interface_ext_power_supply_controller.cpp"
+  post_render();
+} else
+    
 //*%..IDENTIFIER $GET /default/test$
 if (uri == "/default/test" && http_verb == "GET"){
   pre_render_layout("application.html");
