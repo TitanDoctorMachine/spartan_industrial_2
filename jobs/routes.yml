@@ -1,3 +1,10 @@
+- route: /admin/
+  verb: GET
+  render_method: html #html, js, text
+  file_controller: null
+  file_view_self_generated: admin/login/redirect.html
+  layout: null
+
 #admin zone security zone
 - route: /admin/login_session_new
   verb: GET
@@ -92,23 +99,9 @@
   render_method: js #html, js, text
   file_controller: admin/interface_shift_ios/POST_interface_ext_power_supply_controller.cpp
   layout: null
-
-
-
-
-
-
-
-
-- route: /default/test
+  
+- route: /
   verb: GET
-  render_method: html #html, js, text
-  file_controller: default_test/GET_default_test_controller.cpp
-  layout: application.html
-
-- route: /admin
-  verb: GET
-  render_method: html #html, js, text
-  file_controller: null
-  file_view_self_generated: admin/login/redirect.html
-  layout: null
+  render_method: html
+  file_controller: GET_default_landing_page_controller.cpp
+  layout: application.html 
