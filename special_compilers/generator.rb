@@ -1,13 +1,16 @@
 class SpartanGenerator
 
-  def initialize(hash_params, files_layouts, files_partials)
+  def initialize(hash_params, files_layouts, files_partials, tasked_jobs)
     @hash_params = hash_params
     @files_layouts = files_layouts
     @files_partials = files_partials
+    @tasked_jobs = tasked_jobs
+
     @global_output = ""
     @global_output_renders =  ""
     @global_output_layouts =  ""
     @global_output_partials =  ""
+    @global_tasked_jobs = ""
   end
 
   def generate
@@ -24,6 +27,8 @@ class SpartanGenerator
 
     add_routes_footer()
 
+    load_file_tasked_jobs()
+
     return @global_output
   end
 
@@ -37,6 +42,10 @@ class SpartanGenerator
 
   def return_partials
     return @global_output_partials
+  end
+
+  def return_tasked_jobs
+    return @global_tasked_jobs
   end
 
   private
@@ -155,6 +164,29 @@ if (uri == "#{route}" && http_verb == "#{verb.upcase}"){
   post_render();
 } else
     }
+  end
+
+  def load_file_tasked_jobs
+
+    @global_tasked_jobs = %{
+//Self generated part
+}
+
+    @tasked_jobs.each do |hash|
+      @global_tasked_jobs += %{
+if (job_id.startsWith("#{hash["task"]}")) {
+  #include "../../#{hash["route"]}"
+} else
+}
+    end
+
+    if @tasked_jobs.count != 0 
+      @global_tasked_jobs += %{
+{
+  return "FAIL";
+};
+}
+    end    
   end
 
 
