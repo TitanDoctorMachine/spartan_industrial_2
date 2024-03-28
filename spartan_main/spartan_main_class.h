@@ -3,11 +3,13 @@
 
 #include <Arduino.h>;
 
+#define SYSTEM_IDENTIFIER "UNIT_00001"
+
 #include <unordered_map>
 #include <string>
 #include <ESP8266WiFi.h>
 
-#include "workers/spartan_configs_static_class.h"
+#include "spartan_configs_static_class.h"
 #include "workers/spartan_logger_class.h"
 #include "workers/spartan_security_class.h"
 #include "workers/spartan_interface_class.h"
@@ -20,11 +22,14 @@ SpartanTimeThreadClass thread_server_1(2);
 SpartanTimeThreadClass thread_server_2(3);
 SpartanTimeThreadClass thread_server_3(4);
 SpartanTimeThreadClass thread_server_4(5);
+SpartanTimeThreadClass thread_server_5(6);
+SpartanTimeThreadClass thread_server_6(7);
 
 SpartanTimeThreadClass TimeLoop1;
 SpartanTimeThreadClass TimeLoop2;
-SpartanTimeThreadClass TimeLoop3;
+SpartanTimeThreadClass TimeLoopBase;
 
+#include "workers/async_jobs_performer/spartan_async_job_class.h"
 
 class SpartanMainClass {
   private:
@@ -80,24 +85,12 @@ void SpartanMainClass::sustain_loop () {
 		SpartanServerNetwork.perform_task_loops();
 	}
 
-	if(thread_server_3.run()){
-	}
-
-	if(thread_server_4.run()){
-	}
-
-	if(TimeLoop1.every_x_milliseconds(1000)){
-		// Logger.println("Run 1s");
-	}
-
-	if(TimeLoop2.every_x_milliseconds(4000)){
-		// Logger.println("Run 4s");
-	}
-
-	if(TimeLoop3.every_x_milliseconds(600000)){
+	if(TimeLoopBase.every_x_milliseconds(600000)){
 		SpartanInterfaceDisplay.clear_screen();
 		SpartanInterfaceDisplay.write_screen();
 	}
+
+	SpartanAsyncJob.run_threads();
 
 };
 

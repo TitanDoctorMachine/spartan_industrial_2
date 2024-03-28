@@ -1,46 +1,11 @@
 #ifndef SPARTANSERVERNETWORKCLASS_H 
 #define SPARTANSERVERNETWORKCLASS_H
 
-#include "views/base_layouts/logob64.png.h"
-#include "views/base_layouts/application.css.h"
-#include "views/base_layouts/application.js.h"
-#include "views/base_layouts/pre_load_screen.html.h"
-
-#include "views/login/login_page.html.h"
-#include "views/sidebar.html.h"
-#include "views/dashboard/dashboard.html.h"
-#include "views/wifi/wifi_page.html.h"
-#include "views/security/security_page.html.h"
-#include "views/interface_ios/interface_ios_page.html.h"
-#include "views/interface_ios/gpio_interface_ios_page.html.h"
-
-
 SpartanSecurityClass LocalSpartanSecurity;
 
 class SpartanServerNetworkClass {
   private:
-		String input_js_in_page(String);
-		String input_css_in_page(String);
-  	String input_logo_in_page(String);
-  	String input_side_bar_html_in_page(String);
-  	String pre_load_contents(String);
-		
-		String render_html_page(String);	
 
-		void authenticate();	
-
-		/*For  loading the pages*/
- 		void internal_load_dashboard_page();
- 		void internal_load_wifi_page();
- 		void internal_update_hotspot_params();
- 		void internal_update_network_params();
- 		void internal_load_login_page();
- 		void internal_login_method();
-		void internal_load_security_screen();
-		void internal_update_system_password();
-		void internal_load_system_ios_ports_page();
-		void internal_load_system_gpio_ports_page();
-		void internal_interface_ios();
 		void internal_ignum4_interface();
 		void internal_ignum4_challenge();
 		String perform_job(String);
@@ -50,58 +15,12 @@ class SpartanServerNetworkClass {
 		void start();
 		void perform_task_loops();
 
-		/*The call of the pages class render*/
-	  //LOGIN
-		std::function<void()> load_login_page() {return [this]() {
-      this->internal_load_login_page();
-    };}
-		std::function<void()> login_method() {return [this]() {
-      this->internal_login_method();
-    };}
-		
-		//Views
-		std::function<void()> load_dashboard_page() {return [this]() {
-      this->internal_load_dashboard_page();
-    };}
-
-	  std::function<void()> load_wifi_page() {return [this]() {
-      this->internal_load_wifi_page();
-    };}
-
-	  std::function<void()> update_hotspot_params() {return [this]() {
-      this->internal_update_hotspot_params();
-    };}
-
-    std::function<void()> update_network_params() {return [this]() {
-      this->internal_update_network_params();
-    };}
-
-    std::function<void()> load_security_screen() {return [this]() {
-      this->internal_load_security_screen();
-    };}
-
-    std::function<void()> update_system_password() {return [this]() {
-      this->internal_update_system_password();
-    };}
-		
-		std::function<void()> load_system_ios_ports_page() {return [this]() {
-      this->internal_load_system_ios_ports_page();
-    };}
-		std::function<void()> load_system_gpio_ports_page() {return [this]() {
-      this->internal_load_system_gpio_ports_page();
-    };}
-		std::function<void()> interface_ios() {return [this]() {
-      this->internal_interface_ios();
-    };}
 		std::function<void()> ignum4_interface() {return [this]() {
       this->internal_ignum4_interface();
     };}
 		std::function<void()>ignum4_challenge() {return [this]() {
       this->internal_ignum4_challenge();
     };}
-
-		
-
 		
 };
 
@@ -109,8 +28,90 @@ void SpartanServerNetworkClass::start () {
 	Logger.println("Started SpartanServerNetworkClass");
 };
 
-#include "spartan_server_network_actions_class.cpp"
-#include "spartan_server_network_renderers_class.cpp"
-#include "spartan_server_network_ignum4_class.cpp"
+/* IGNUM4 Parser*/
+void SpartanServerNetworkClass::internal_ignum4_interface(){
+
+	String message = WebServer.arg("cypher");
+	String token = WebServer.arg("token");
+  Logger.println(message);
+
+	if (SpartanInterfaceFile.read_value("system_token") != token){
+  	Logger.println("MSG: FAIL!");
+		WebServer.send(403, "text/html", "access denied.");
+	}else{
+
+		Logger.println(message);
+
+ 		String commands[32]; // we will support consective 32 commands.
+    int command_index = 0;
+
+ 		char charArray[message.length() + 1];
+
+    message.toCharArray(charArray, sizeof(charArray));
+    char *token = strtok(charArray, ".");
+
+    while (token != NULL && command_index < 32) {
+      commands[command_index] = String(token);
+      command_index++;
+      token = strtok(NULL, ".");
+    }
+
+		int ignum4_task_list_global_size = sizeof(ignum4_task_list_global);
+		int occupied_buffer = 0;
+		int commands_size = sizeof(commands); 
+
+		for(int i= 0; i!=126; i++){ // 126 for some security
+			if (ignum4_task_list_global[i] != "" and ignum4_task_list_global[i] != NULL){
+				occupied_buffer++;
+			}
+		}
+
+		if ((occupied_buffer + 32) >= 125){
+			WebServer.send(500, "text/html", "buffer_exceeded");
+		}
+
+		for(int i= 0; i!=31; i++){ // 32 elements in control array
+			ignum4_task_list_global[i + occupied_buffer] = commands[i];
+		}
+
+		WebServer.send(200, "text/html", "tasked_works");
+	}
+
+}
+
+void SpartanServerNetworkClass::perform_task_loops(){
+	int occupied_buffer = 0;
+	
+	for(int i= 0; i!=126; i++){ // 126 for some security
+		if (ignum4_task_list_global[i] != "" and ignum4_task_list_global[i] != NULL){
+			occupied_buffer++;
+		}
+	}
+
+	if (occupied_buffer != 0 && sleep_time_in_progress_job <= millis()){
+		perform_job(ignum4_task_list_global[0]);
+		Logger.println("JOB: " + ignum4_task_list_global[0]);
+
+		for (int i = 0; i < 126 - 1; ++i) { // 126 = size of buffer securely
+			if (ignum4_task_list_global[i + 1] != ""){
+				ignum4_task_list_global[i] = ignum4_task_list_global[i + 1];
+			} else {
+				ignum4_task_list_global[i] = "";
+				continue;
+			}
+		}
+	}
+
+}
+
+void SpartanServerNetworkClass::internal_ignum4_challenge(){
+	WebServer.send(200, "text/html", Ignum04.get_challenge());
+}
+
+String SpartanServerNetworkClass::perform_job(String job_id){
+
+  #include "job_performs.h"
+	return "OK";
+}
 
 #endif

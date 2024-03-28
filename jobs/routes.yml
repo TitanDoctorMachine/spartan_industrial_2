@@ -1,0 +1,107 @@
+- route: /admin/
+  verb: GET
+  render_method: html #html, js, text
+  file_controller: null
+  file_view_self_generated: admin/login/redirect.html
+  layout: null
+
+#admin zone security zone
+- route: /admin/login_session_new
+  verb: GET
+  render_method: html #html, js, text
+  file_controller: admin/login/GET_session_new_controller.cpp
+  layout: admin.html
+
+- route: /admin/login_session_new
+  verb: POST
+  render_method: js #html, js, text
+  file_controller: admin/login/POST_session_new_controller.cpp
+  layout: null
+
+#admin dashboard zone
+
+- route: /admin/dashboard
+  verb: GET
+  render_method: html #html, js, text
+  file_controller: admin/dashboard/GET_board_controller.cpp
+  layout: admin.html
+
+#admin connections
+
+- route: /admin/connections
+  verb: GET
+  render_method: html #html, js, text
+  file_controller: admin/connections/GET_connections_controller.cpp
+  layout: admin.html
+
+- route: /admin/set_hotspot_params
+  verb: POST
+  render_method: js #html, js, text
+  file_controller: admin/connections/POST_set_hotspot_params_controller.cpp
+  layout: null
+
+- route: /admin/set_network_params
+  verb: POST
+  render_method: js #html, js, text
+  file_controller: admin/connections/POST_set_network_params_controller.cpp
+  layout: null
+
+#admin security screen
+
+- route: /admin/security
+  verb: GET
+  render_method: html #html, js, text
+  file_controller: admin/security/GET_security_controller.cpp
+  layout: admin.html
+
+- route: /admin/security
+  verb: POST
+  render_method: js #html, js, text
+  file_controller: admin/security/POST_security_controller.cpp
+  layout: null
+
+#admin interface gpios
+
+- route: /admin/interface_gpios
+  verb: GET
+  render_method: html #html, js, text
+  file_controller: admin/interface_gpios/GET_interface_gpios_controller.cpp
+  layout: admin.html
+
+- route: /admin/interface_gpios
+  verb: POST
+  render_method: js #html, js, text
+  file_controller: admin/interface_gpios/POST_interface_gpios_controller.cpp
+  layout: null
+
+# admin interface IOS
+
+- route: /admin/set_interface_ios
+  verb: GET
+  render_method: html #html, js, text
+  file_controller: admin/interface_shift_ios/GET_interface_shift_ios_controller.cpp
+  layout: admin.html
+
+- route: /admin/set_interface_ios
+  verb: POST
+  render_method: js #html, js, text
+  file_controller: admin/interface_shift_ios/POST_interface_shift_ios_controller.cpp
+  layout: null
+
+- route: /admin/set_interface_power_port
+  verb: POST
+  render_method: js #html, js, text
+  file_controller: admin/interface_shift_ios/POST_interface_power_port_enable_controller.cpp
+  layout: null
+
+- route: /admin/set_interface_ext_power_supply
+  verb: POST
+  render_method: js #html, js, text
+  file_controller: admin/interface_shift_ios/POST_interface_ext_power_supply_controller.cpp
+  layout: null
+  
+- route: /
+  verb: GET
+  render_method: html
+  file_controller: GET_default_landing_page_controller.cpp
+  layout: application.html 
