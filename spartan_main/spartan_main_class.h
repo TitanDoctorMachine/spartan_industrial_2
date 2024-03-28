@@ -9,7 +9,7 @@
 #include <string>
 #include <ESP8266WiFi.h>
 
-#include "workers/spartan_configs_static_class.h"
+#include "spartan_configs_static_class.h"
 #include "workers/spartan_logger_class.h"
 #include "workers/spartan_security_class.h"
 #include "workers/spartan_interface_class.h"

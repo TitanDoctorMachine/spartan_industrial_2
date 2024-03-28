@@ -40,13 +40,6 @@ void SpartanServerNetworkClass::internal_ignum4_interface(){
 		WebServer.send(403, "text/html", "access denied.");
 	}else{
 
-		/*
-			The supported syntax that I am aiming is something like this:
-	  		http://192.168.1.100/api/v1/ignum4?
-				token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&
-				cypher=POWER_PORT_UP.POWER_SUPPLIER_UP.AUTO-Port_2-TRUE
-		*/
-		
 		Logger.println(message);
 
  		String commands[32]; // we will support consective 32 commands.
@@ -117,11 +110,6 @@ void SpartanServerNetworkClass::internal_ignum4_challenge(){
 
 String SpartanServerNetworkClass::perform_job(String job_id){
 
-  // http://192.168.1.100/api/v1/ignum4?token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&cypher=POWER_SUPPLIER_UP
-  // http://192.168.1.100/api/v1/ignum4?token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&cypher=POWER_SUPPLIER_DOWN
-  // http://192.168.1.100/api/v1/ignum4?token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&cypher=POWER_PORT_UP
-  // http://192.168.1.100/api/v1/ignum4?token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&cypher=POWER_PORT_DOWN
-   
   #include "job_performs.h"
 	return "OK";
 }

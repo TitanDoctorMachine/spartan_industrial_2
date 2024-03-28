@@ -28,8 +28,6 @@ class SpartanInterfaceServerClass {
 
 		String get_wifi_connection_name();
 		String get_wifi_hotspot_name();
-		
-
 
 };
 

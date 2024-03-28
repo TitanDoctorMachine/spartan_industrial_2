@@ -6,7 +6,7 @@
 if (uri == "/admin/" && http_verb == "GET"){
   pre_render_layout("");
   run_application();
-  pre_render(var_home_docmac_Arduino_spartan_industrial_2_special_compilers____jobs_views_admin_login_redirect_html);
+  pre_render(var_home_docmac_Develop_spartan_industrial_2_special_compilers____jobs_views_admin_login_redirect_html);
   
   post_render();
 } else
@@ -15,7 +15,7 @@ if (uri == "/admin/" && http_verb == "GET"){
 if (uri == "/admin/login_session_new" && http_verb == "GET"){
   pre_render_layout("admin.html");
   run_application();
-  pre_render(var_home_docmac_Arduino_spartan_industrial_2_special_compilers____jobs_views_admin_login_GET_session_new_html);
+  pre_render(var_home_docmac_Develop_spartan_industrial_2_special_compilers____jobs_views_admin_login_GET_session_new_html);
   #include "../../jobs/controllers/admin/login/GET_session_new_controller.cpp"
   post_render();
 } else
@@ -24,7 +24,7 @@ if (uri == "/admin/login_session_new" && http_verb == "GET"){
 if (uri == "/admin/login_session_new" && http_verb == "POST"){
   pre_render_layout("");
   run_application();
-  pre_render(var_home_docmac_Arduino_spartan_industrial_2_special_compilers____jobs_views_admin_login_POST_session_new_js);
+  pre_render(var_home_docmac_Develop_spartan_industrial_2_special_compilers____jobs_views_admin_login_POST_session_new_js);
   #include "../../jobs/controllers/admin/login/POST_session_new_controller.cpp"
   post_render();
 } else
@@ -33,7 +33,7 @@ if (uri == "/admin/login_session_new" && http_verb == "POST"){
 if (uri == "/admin/dashboard" && http_verb == "GET"){
   pre_render_layout("admin.html");
   run_application();
-  pre_render(var_home_docmac_Arduino_spartan_industrial_2_special_compilers____jobs_views_admin_dashboard_GET_board_html);
+  pre_render(var_home_docmac_Develop_spartan_industrial_2_special_compilers____jobs_views_admin_dashboard_GET_board_html);
   #include "../../jobs/controllers/admin/dashboard/GET_board_controller.cpp"
   post_render();
 } else
@@ -42,7 +42,7 @@ if (uri == "/admin/dashboard" && http_verb == "GET"){
 if (uri == "/admin/connections" && http_verb == "GET"){
   pre_render_layout("admin.html");
   run_application();
-  pre_render(var_home_docmac_Arduino_spartan_industrial_2_special_compilers____jobs_views_admin_connections_GET_connections_html);
+  pre_render(var_home_docmac_Develop_spartan_industrial_2_special_compilers____jobs_views_admin_connections_GET_connections_html);
   #include "../../jobs/controllers/admin/connections/GET_connections_controller.cpp"
   post_render();
 } else
@@ -69,7 +69,7 @@ if (uri == "/admin/set_network_params" && http_verb == "POST"){
 if (uri == "/admin/security" && http_verb == "GET"){
   pre_render_layout("admin.html");
   run_application();
-  pre_render(var_home_docmac_Arduino_spartan_industrial_2_special_compilers____jobs_views_admin_security_GET_security_html);
+  pre_render(var_home_docmac_Develop_spartan_industrial_2_special_compilers____jobs_views_admin_security_GET_security_html);
   #include "../../jobs/controllers/admin/security/GET_security_controller.cpp"
   post_render();
 } else
@@ -87,7 +87,7 @@ if (uri == "/admin/security" && http_verb == "POST"){
 if (uri == "/admin/interface_gpios" && http_verb == "GET"){
   pre_render_layout("admin.html");
   run_application();
-  pre_render(var_home_docmac_Arduino_spartan_industrial_2_special_compilers____jobs_views_admin_interface_gpios_GET_interface_gpios_html);
+  pre_render(var_home_docmac_Develop_spartan_industrial_2_special_compilers____jobs_views_admin_interface_gpios_GET_interface_gpios_html);
   #include "../../jobs/controllers/admin/interface_gpios/GET_interface_gpios_controller.cpp"
   post_render();
 } else
@@ -105,7 +105,7 @@ if (uri == "/admin/interface_gpios" && http_verb == "POST"){
 if (uri == "/admin/set_interface_ios" && http_verb == "GET"){
   pre_render_layout("admin.html");
   run_application();
-  pre_render(var_home_docmac_Arduino_spartan_industrial_2_special_compilers____jobs_views_admin_interface_shift_ios_GET_interface_shift_ios_html);
+  pre_render(var_home_docmac_Develop_spartan_industrial_2_special_compilers____jobs_views_admin_interface_shift_ios_GET_interface_shift_ios_html);
   #include "../../jobs/controllers/admin/interface_shift_ios/GET_interface_shift_ios_controller.cpp"
   post_render();
 } else
@@ -141,7 +141,7 @@ if (uri == "/admin/set_interface_ext_power_supply" && http_verb == "POST"){
 if (uri == "/" && http_verb == "GET"){
   pre_render_layout("application.html");
   run_application();
-  pre_render(var_home_docmac_Arduino_spartan_industrial_2_special_compilers____jobs_views_GET_default_landing_page_html);
+  pre_render(var_home_docmac_Develop_spartan_industrial_2_special_compilers____jobs_views_GET_default_landing_page_html);
   #include "../../jobs/controllers/GET_default_landing_page_controller.cpp"
   post_render();
 } else
@@ -150,7 +150,7 @@ if (uri == "/" && http_verb == "GET"){
 if (uri == "/do_not_use_firefox.html" && http_verb == "GET"){
   pre_render_layout("");
   run_application();
-  pre_render(var_home_docmac_Arduino_spartan_industrial_2_special_compilers____jobs_public_assets__do_not_use_firefox_html);
+  pre_render(var_home_docmac_Develop_spartan_industrial_2_special_compilers____jobs_public_assets__do_not_use_firefox_html);
   
   post_render();
 } else
