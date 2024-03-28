@@ -49,8 +49,6 @@ This firmware is developed for the Arduino platform, specifically targeting the 
     Compilation and Upload:
         Compile the code and upload it to the ESP8266 module.
 
-# ------- Alpha release! -------
-
 # System Requirements
 
     Ruby installed (version 3.0.1 or higher)
@@ -111,5 +109,5 @@ This firmware is developed for the Arduino platform, specifically targeting the 
 
 # Contributions
 
-    You can clone and modify as you want, and if you want, try to submit some pull requests, and try to work above the develop branch;
-    Being honest I am normally not monitoring this platform, but you can try to send some messages if you you realy need or have some doubts. 
+You can clone and modify as you want, and if you want, try to submit some pull requests, and try to work above the develop branch;
+Being honest I am normally not monitoring this platform, but you can try to send some messages if you you realy need or have some doubts. 
