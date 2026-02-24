@@ -7,7 +7,7 @@
 class SpartanInterfaceServerClass {
 	private:
 		int tentativasConexao = 0;
-		int maxTentativasConexao = 5;  
+		int maxTentativasConexao = 15;  
 
 		bool server_mode = false;
 
@@ -35,7 +35,7 @@ void SpartanInterfaceServerClass::start () {
 	Logger.println("Started SpartanInterfaceServerClass");
 
 	if(SpartanInterfaceFile.read_value("hotspot_ssid") == ""){
-		SpartanInterfaceFile.write_value("hotspot_ssid", "SystemSpartanIndustrial2");
+		SpartanInterfaceFile.write_value("hotspot_ssid", ("SysSpaInd_" + SpartanSecurity.random_code().substring(0, 8)));
 	}
 	if(SpartanInterfaceFile.read_value("hotspot_password") == ""){
 		SpartanInterfaceFile.write_value("hotspot_password", "0123456789");

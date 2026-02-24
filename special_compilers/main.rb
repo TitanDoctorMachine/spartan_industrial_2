@@ -1,5 +1,5 @@
-# require_relative "LibUI/lib/libui.rb"
-require "libui"
+require_relative "LibUI/lib/libui.rb"
+#require "libui"
 require "pry"
 require "yaml"
 require_relative "interface.rb"

@@ -9,6 +9,10 @@ if (job_id.startsWith("DELAY")) {
   #include "../../../tasks/delay.cpp"
 } else
 
+if (job_id.startsWith("GPIO")) {
+  #include "../../../tasks/gpio.cpp"
+} else
+
 if (job_id.startsWith("POWER_PORT_DOWN")) {
   #include "../../../tasks/power_port_down.cpp"
 } else
